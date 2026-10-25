@@ -63,7 +63,7 @@ No training. Pretrained models only. Marks come from the system, the explanation
 | A3 | UI | Streamlit app: upload → chat → answer with evidence + confidence | [x] |
 | A4 | Evaluation | 56 hand-written Q/A on 3 docs; EM/F1/Recall@k/latency table (`data/eval/results.md`) | [x] |
 | A4b | Long-document eval | Repeat A4 on one real 20+ page PDF so dense vs TF-IDF retrieval actually differ | [ ] |
-| A5 | Report + demo | Report, slides, demo video | [ ] |
+| A5 | Report + demo | Outline `docs/REPORT_OUTLINE.md` and script `docs/DEMO_SCRIPT.md` drafted; report text, slides, video still to do | [~] |
 
 ### Features
 
