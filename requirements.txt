@@ -1,3 +1,6 @@
+# CPU-only PyTorch wheels: far smaller than the default CUDA build and all
+# Streamlit Community Cloud can use anyway.
+--extra-index-url https://download.pytorch.org/whl/cpu
 torch
 transformers>=5
 sentence-transformers
