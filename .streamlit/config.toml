@@ -1,0 +1,14 @@
+[browser]
+gatherUsageStats = false
+
+[server]
+headless = true
+# The hot-reload watcher crawls every imported package and tries to import
+# transformers' vision submodules, which need torchvision. We don't need
+# hot reload in production, so turn the watcher off entirely.
+fileWatcherType = "none"
+
+[client]
+# Hide the developer items (Rerun, Settings, Edit source, Fork, GitHub link)
+# from the top-right toolbar so visitors see a normal web app.
+toolbarMode = "viewer"

@@ -3,4 +3,4 @@ __pycache__/
 *.pyc
 models/*
 !models/.gitkeep
-.streamlit/
+.streamlit/secrets.toml
