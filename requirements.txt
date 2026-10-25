@@ -1,0 +1,9 @@
+torch
+transformers>=5
+sentence-transformers
+faiss-cpu
+pymupdf
+python-docx
+scikit-learn
+streamlit
+numpy

@@ -1,0 +1,17 @@
+The Transformer: A Short Overview
+
+The Transformer is a neural network architecture introduced in 2017 by Vaswani and colleagues at Google in the paper titled "Attention Is All You Need". Unlike earlier sequence models such as recurrent neural networks (RNNs) and long short-term memory networks (LSTMs), the Transformer does not process tokens one after another. Instead, it relies entirely on a mechanism called self-attention to model relationships between all tokens in a sequence at once.
+
+Self-attention works by computing three vectors for every token: a query, a key, and a value. The attention score between two tokens is the dot product of one token's query with the other token's key, scaled by the square root of the key dimension and passed through a softmax function. The output for each token is a weighted sum of the value vectors, where the weights are the attention scores. Because every token attends to every other token, the model can capture long-range dependencies that RNNs struggle with.
+
+The original Transformer used multi-head attention, in which eight attention heads run in parallel, each learning to focus on different kinds of relationships. The outputs of the heads are concatenated and projected back to the model dimension, which was 512 in the base model. The base model had six encoder layers and six decoder layers, and about 65 million parameters. Training on the WMT 2014 English-to-German translation task took 12 hours on eight NVIDIA P100 GPUs.
+
+Since the Transformer has no recurrence, it has no built-in notion of word order. To fix this, the authors added positional encodings to the input embeddings. The original paper used fixed sinusoidal functions of different frequencies, although later models such as BERT learned the positional embeddings instead.
+
+BERT, released by Google in 2018, uses only the encoder half of the Transformer. It is pretrained with two objectives: masked language modeling, where 15 percent of the input tokens are hidden and the model must predict them, and next sentence prediction. BERT-base has 12 layers, a hidden size of 768, 12 attention heads, and 110 million parameters. After pretraining, BERT is fine-tuned on downstream tasks such as question answering, where it learns to predict the start and end positions of the answer span within a passage.
+
+RoBERTa, developed by Facebook AI in 2019, is a robustly optimized version of BERT. It removed the next sentence prediction objective, trained on ten times more data for longer, and used larger batches and dynamic masking. These changes improved results on benchmarks such as GLUE and SQuAD without changing the architecture.
+
+The Stanford Question Answering Dataset, known as SQuAD, is the standard benchmark for extractive question answering. SQuAD 1.1 contains over 100,000 question-answer pairs written by crowd workers on Wikipedia articles, where every question has an answer in the passage. SQuAD 2.0 added more than 50,000 unanswerable questions, so models must also learn when to abstain. Performance is measured with Exact Match, which requires the predicted span to match the gold answer exactly, and F1, which gives partial credit for token overlap.
+
+Transformers are now the dominant architecture in natural language processing and have spread to computer vision through the Vision Transformer, to speech through models like Whisper, and to protein structure prediction through AlphaFold 2.
