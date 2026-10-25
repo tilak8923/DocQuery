@@ -1,4 +1,4 @@
-"""Streamlit UI for DLQA.
+"""Streamlit UI for DocQuery (DLQA).
 
 Run:  .venv/bin/streamlit run app/streamlit_app.py
 
@@ -20,7 +20,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from dlqa.pipeline import DocumentQA, QAResult  # noqa: E402
 
-st.set_page_config(page_title="DLQA — Document QA", page_icon="📄", layout="wide")
+st.set_page_config(page_title="DocQuery", page_icon="📄", layout="wide")
 
 SAMPLES_DIR = Path(__file__).resolve().parent.parent / "data" / "samples"
 
@@ -70,7 +70,7 @@ def render_result(r: QAResult) -> None:
 
 # ---------------------------------------------------------------- sidebar
 with st.sidebar:
-    st.title("📄 DLQA")
+    st.title("📄 DocQuery")
     st.caption("Deep Learning-Based Document Question Answering")
 
     uploaded = st.file_uploader("Upload a document", type=["pdf", "docx", "txt", "md"])

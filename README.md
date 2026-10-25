@@ -1,4 +1,4 @@
-# DLQA — Deep Learning-Based Document Question Answering
+# DocQuery — Deep Learning-Based Document Question Answering
 
 Upload a document, ask a question, get an answer grounded in that document with the
 supporting passage shown as evidence. See [PLAN.md](PLAN.md) for scope and architecture.
@@ -55,6 +55,20 @@ retrievers and writes `data/eval/results.md` (EM, F1, Recall@k, abstain accuracy
 
 Current results (56 questions, 3 documents, CPU): EM 0.86, F1 0.88, Recall@5 1.00,
 abstain accuracy 1.00, ~0.2 s per question.
+
+## Deploy on Streamlit Community Cloud
+
+1. Push this repo to GitHub (public).
+2. At https://share.streamlit.io choose **New app**, pick the repo, branch `main`,
+   main file `app/streamlit_app.py`, and the app URL `docquery`.
+3. Deploy. First boot takes a few minutes while the two models download.
+
+The free tier has about 1 GB of RAM. If the app is killed while loading models, switch the
+reader to a smaller SQuAD 2 model in `dlqa/reader.py`:
+
+```python
+MODEL_NAME = "deepset/tinyroberta-squad2"
+```
 
 ## How it works
 

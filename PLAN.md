@@ -1,4 +1,4 @@
-# Deep Learning-Based Document Question Answering — Project Plan
+# DocQuery — Deep Learning-Based Document Question Answering — Project Plan
 
 This file holds **two tracks**. Track A is the committed scope. Track B is done only if Track A
 is finished and time remains. Update the status checkboxes as work lands.
