@@ -90,7 +90,7 @@ with st.sidebar:
         ["dense", "tfidf"],
         format_func=lambda x: "Dense (neural embeddings)" if x == "dense" else "TF-IDF (keyword baseline)",
     )
-    top_k = st.slider("Passages to read (top-k)", 1, 6, 3)
+    top_k = st.slider("Passages to read (top-k)", 1, 8, 5)
 
     if st.button("Clear chat"):
         st.session_state.pop("messages", None)

@@ -36,13 +36,21 @@ class ReaderAnswer:
 class ExtractiveReader:
     MODEL_NAME = "deepset/roberta-base-squad2"
 
-    def __init__(self, model_name: str = MODEL_NAME, max_answer_tokens: int = 40):
+    def __init__(
+        self,
+        model_name: str = MODEL_NAME,
+        max_answer_tokens: int = 40,
+        null_margin: float = 0.0,
+    ):
         from transformers import AutoModelForQuestionAnswering, AutoTokenizer
 
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = AutoModelForQuestionAnswering.from_pretrained(model_name)
         self.model.eval()
         self.max_answer_tokens = max_answer_tokens
+        # Abstain only if null_score > span_score + null_margin. A positive
+        # margin makes the reader less eager to say "no answer".
+        self.null_margin = null_margin
 
     @torch.no_grad()
     def answer(self, question: str, context: str) -> ReaderAnswer:
@@ -83,7 +91,7 @@ class ExtractiveReader:
         # Probability-style confidence: softmax over {null, best span}.
         prob = float(torch.softmax(torch.tensor([span_score, null_score]), dim=0)[0])
 
-        if null_score > span_score:
+        if null_score > span_score + self.null_margin:
             return ReaderAnswer("", prob, 0, 0, null_score=null_score, span_score=span_score)
 
         start_char = offsets[c0 + bs][0]

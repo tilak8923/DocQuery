@@ -59,9 +59,10 @@ No training. Pretrained models only. Marks come from the system, the explanation
 |---|---|---|---|
 | A0 | Setup | Repo layout, venv, requirements, sample docs | [x] |
 | A1 | Core pipeline (CLI) | `python -m dlqa.cli doc.pdf "question"` → answer + passage | [x] |
-| A2 | Retriever tuning | Chunk size / overlap / top-k chosen by measurement | [ ] |
+| A2 | Retriever tuning | Chunk size / overlap / top-k chosen by measurement (`scripts/sweep.py`) | [x] |
 | A3 | UI | Streamlit app: upload → chat → answer with evidence + confidence | [x] |
-| A4 | Evaluation | 30–50 hand-written Q/A on 3–4 real docs; accuracy + latency table; dense vs TF-IDF retrieval comparison | [ ] |
+| A4 | Evaluation | 56 hand-written Q/A on 3 docs; EM/F1/Recall@k/latency table (`data/eval/results.md`) | [x] |
+| A4b | Long-document eval | Repeat A4 on one real 20+ page PDF so dense vs TF-IDF retrieval actually differ | [ ] |
 | A5 | Report + demo | Report, slides, demo video | [ ] |
 
 ### Features
@@ -84,6 +85,20 @@ Should have
 - Optional zero-cost comparison: `roberta-base-squad2` vs `roberta-large-squad2`
 
 ---
+
+### Findings so far (2026-10-25)
+
+- Defaults chosen by sweep: chunk 180 words, overlap 45, **top-k 5**, null margin 0.
+- Overall on 56 questions: **EM 0.86, F1 0.88, Recall@5 1.00, abstain accuracy 1.00, 0.21 s/question** on CPU.
+- Top-k 3 → 5 was the big win: it lifted dense Recall@k from 0.88 to 1.00.
+- A positive null margin raises F1 (0.93 at margin 3) but makes the system answer
+  unanswerable questions (e.g. "How much does the kettle cost?" → "1.7 liters"). Kept at 0.
+- Dense and TF-IDF tie at top-k 5 because the sample docs have only 4–5 chunks, so the
+  reader sees everything. At top-k 3 TF-IDF was slightly ahead (keyword-heavy questions).
+  A long real document is needed to show the dense retriever's value → A4b.
+- Remaining misses are all reader abstains on answerable questions, mostly phrasing
+  mismatches ("late penalty" vs "lose 10 percent per day"). This is the strongest
+  argument for Track B fine-tuning.
 
 ## 4. Track B — Stretch (only if Track A is done and time remains)
 

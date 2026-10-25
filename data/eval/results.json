@@ -1,0 +1,1432 @@
+{
+  "dense": [
+    {
+      "document": "data/samples/kettle_manual.txt",
+      "n": 19,
+      "em": 0.8421052631578947,
+      "f1": 0.868421052631579,
+      "recall": 1.0,
+      "abstain_acc": 1.0,
+      "sec": 0.22863157894736844,
+      "rows": [
+        {
+          "q": "What is the capacity of the kettle?",
+          "gold": [
+            "1.7 liters"
+          ],
+          "pred": "1.7 liters",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.245
+        },
+        {
+          "q": "What is the power rating?",
+          "gold": [
+            "2200 watts"
+          ],
+          "pred": "2200 watts, 220 to 240 volts",
+          "conf": 1.0,
+          "em": 0.0,
+          "f1": 0.5,
+          "recall": 1.0,
+          "sec": 0.227
+        },
+        {
+          "q": "What is the model number?",
+          "gold": [
+            "AB-2000"
+          ],
+          "pred": "AB-2000",
+          "conf": 0.998,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.23
+        },
+        {
+          "q": "What is the minimum amount of water?",
+          "gold": [
+            "0.5 liters"
+          ],
+          "pred": "0.5 liters",
+          "conf": 0.945,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.227
+        },
+        {
+          "q": "What temperature is recommended for green tea?",
+          "gold": [
+            "60 degrees"
+          ],
+          "pred": "60 degrees",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.225
+        },
+        {
+          "q": "How long does keep warm last?",
+          "gold": [
+            "up to 30 minutes",
+            "30 minutes"
+          ],
+          "pred": "",
+          "conf": 0.0,
+          "em": 0.0,
+          "f1": 0.0,
+          "recall": 1.0,
+          "sec": 0.226
+        },
+        {
+          "q": "How many times does the kettle beep when done?",
+          "gold": [
+            "three times",
+            "three"
+          ],
+          "pred": "three",
+          "conf": 0.999,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.226
+        },
+        {
+          "q": "How long should the kettle cool after boil-dry protection activates?",
+          "gold": [
+            "10 minutes"
+          ],
+          "pred": "10 minutes",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.234
+        },
+        {
+          "q": "Which Wi-Fi band does the kettle support?",
+          "gold": [
+            "2.4 GHz"
+          ],
+          "pred": "2.4 GHz",
+          "conf": 0.899,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.225
+        },
+        {
+          "q": "How do you enter pairing mode?",
+          "gold": [
+            "Hold the KEEP WARM button for five seconds",
+            "Hold the KEEP WARM button for five seconds until the ring light flashes white"
+          ],
+          "pred": "Hold the KEEP WARM button for five seconds until the ring light flashes white",
+          "conf": 0.966,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.222
+        },
+        {
+          "q": "Which voice assistants work with the kettle?",
+          "gold": [
+            "Amazon Alexa and Google Assistant"
+          ],
+          "pred": "Amazon Alexa and Google Assistant",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.222
+        },
+        {
+          "q": "How often should the kettle be descaled?",
+          "gold": [
+            "every four to eight weeks",
+            "four to eight weeks"
+          ],
+          "pred": "every four to eight weeks",
+          "conf": 0.508,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.23
+        },
+        {
+          "q": "What should be mixed with water for descaling?",
+          "gold": [
+            "white vinegar",
+            "equal parts water and white vinegar"
+          ],
+          "pred": "",
+          "conf": 0.0,
+          "em": 0.0,
+          "f1": 0.0,
+          "recall": 1.0,
+          "sec": 0.23
+        },
+        {
+          "q": "What does a flashing red ring light mean?",
+          "gold": [
+            "boil-dry protection has activated"
+          ],
+          "pred": "boil-dry protection has activated",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.224
+        },
+        {
+          "q": "How long is the warranty?",
+          "gold": [
+            "two-year",
+            "two years"
+          ],
+          "pred": "two-year",
+          "conf": 0.987,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.225
+        },
+        {
+          "q": "Where is the serial number printed?",
+          "gold": [
+            "on the underside of the base",
+            "the underside of the base"
+          ],
+          "pred": "on the underside of the base",
+          "conf": 0.995,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.228
+        },
+        {
+          "q": "What is the support email address?",
+          "gold": [
+            "help@aquaboil.com"
+          ],
+          "pred": "help@aquaboil.com",
+          "conf": 0.921,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.237
+        },
+        {
+          "q": "What colour is the kettle?",
+          "gold": [],
+          "pred": "",
+          "conf": 0.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": null,
+          "sec": 0.231
+        },
+        {
+          "q": "How much does the kettle cost?",
+          "gold": [],
+          "pred": "",
+          "conf": 0.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": null,
+          "sec": 0.23
+        }
+      ]
+    },
+    {
+      "document": "data/samples/syllabus.txt",
+      "n": 18,
+      "em": 0.8333333333333334,
+      "f1": 0.8636363636363636,
+      "recall": 1.0,
+      "abstain_acc": 1.0,
+      "sec": 0.19511111111111112,
+      "rows": [
+        {
+          "q": "Who is the instructor?",
+          "gold": [
+            "Dr. Priya Raman",
+            "Priya Raman"
+          ],
+          "pred": "Dr. Priya Raman",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.196
+        },
+        {
+          "q": "Where is the instructor's office?",
+          "gold": [
+            "Engineering Block B, Room 312",
+            "Room 312"
+          ],
+          "pred": "Engineering Block B, Room 312",
+          "conf": 0.997,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.194
+        },
+        {
+          "q": "When are office hours?",
+          "gold": [
+            "Tuesdays and Thursdays, 2:00 pm to 4:00 pm"
+          ],
+          "pred": "Tuesdays and Thursdays",
+          "conf": 0.999,
+          "em": 0.0,
+          "f1": 0.5454545454545454,
+          "recall": 1.0,
+          "sec": 0.192
+        },
+        {
+          "q": "Who is the teaching assistant?",
+          "gold": [
+            "Arjun Mehta"
+          ],
+          "pred": "Arjun Mehta",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.191
+        },
+        {
+          "q": "What is the prerequisite for this course?",
+          "gold": [
+            "CS 3310 Machine Learning",
+            "CS 3310"
+          ],
+          "pred": "CS 3310 Machine Learning",
+          "conf": 0.989,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.198
+        },
+        {
+          "q": "When is the midterm examination?",
+          "gold": [
+            "Friday, October 10",
+            "October 10"
+          ],
+          "pred": "Friday, October 10",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.191
+        },
+        {
+          "q": "What is covered in week 9?",
+          "gold": [
+            "Attention and the Transformer architecture"
+          ],
+          "pred": "Attention and the Transformer architecture",
+          "conf": 0.997,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.211
+        },
+        {
+          "q": "How much of the grade is the final project worth?",
+          "gold": [
+            "25 percent"
+          ],
+          "pred": "25 percent",
+          "conf": 0.977,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.194
+        },
+        {
+          "q": "How much is each programming assignment worth?",
+          "gold": [
+            "10 percent"
+          ],
+          "pred": "10 percent",
+          "conf": 0.817,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.201
+        },
+        {
+          "q": "What minimum score is required on the final exam to pass?",
+          "gold": [
+            "40 percent",
+            "at least 40 percent"
+          ],
+          "pred": "40 percent",
+          "conf": 0.996,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.197
+        },
+        {
+          "q": "Which dataset is used in assignment 2?",
+          "gold": [
+            "CIFAR-10"
+          ],
+          "pred": "CIFAR-10",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.201
+        },
+        {
+          "q": "What is the late penalty?",
+          "gold": [
+            "10 percent per day"
+          ],
+          "pred": "",
+          "conf": 0.0,
+          "em": 0.0,
+          "f1": 0.0,
+          "recall": 1.0,
+          "sec": 0.191
+        },
+        {
+          "q": "How many students are in a project team?",
+          "gold": [
+            "two or three"
+          ],
+          "pred": "",
+          "conf": 0.0,
+          "em": 0.0,
+          "f1": 0.0,
+          "recall": 1.0,
+          "sec": 0.195
+        },
+        {
+          "q": "Who wrote the textbook?",
+          "gold": [
+            "Ian Goodfellow, Yoshua Bengio, and Aaron Courville"
+          ],
+          "pred": "Ian Goodfellow, Yoshua Bengio, and Aaron Courville",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.187
+        },
+        {
+          "q": "Which Python version is used?",
+          "gold": [
+            "Python 3.10",
+            "3.10"
+          ],
+          "pred": "3.10",
+          "conf": 0.968,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.189
+        },
+        {
+          "q": "What happens if a student plagiarises?",
+          "gold": [
+            "a grade of zero for the assignment and referral to the academic integrity office",
+            "a grade of zero"
+          ],
+          "pred": "a grade of zero for the assignment and referral to the academic integrity office",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.195
+        },
+        {
+          "q": "What is the course fee?",
+          "gold": [],
+          "pred": "",
+          "conf": 0.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": null,
+          "sec": 0.193
+        },
+        {
+          "q": "Which room is the final exam held in?",
+          "gold": [],
+          "pred": "",
+          "conf": 0.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": null,
+          "sec": 0.196
+        }
+      ]
+    },
+    {
+      "document": "data/samples/transformers.txt",
+      "n": 19,
+      "em": 0.8947368421052632,
+      "f1": 0.8947368421052632,
+      "recall": 1.0,
+      "abstain_acc": 1.0,
+      "sec": 0.19357894736842104,
+      "rows": [
+        {
+          "q": "Who proposed the Transformer?",
+          "gold": [
+            "Vaswani and colleagues at Google",
+            "Vaswani"
+          ],
+          "pred": "Vaswani and colleagues at Google",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.186
+        },
+        {
+          "q": "In which year was the Transformer introduced?",
+          "gold": [
+            "2017"
+          ],
+          "pred": "2017",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.19
+        },
+        {
+          "q": "What is the title of the Transformer paper?",
+          "gold": [
+            "Attention Is All You Need"
+          ],
+          "pred": "Attention Is All You Need\".",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.187
+        },
+        {
+          "q": "What are the three vectors computed for every token in self-attention?",
+          "gold": [
+            "a query, a key, and a value",
+            "query, key, and value"
+          ],
+          "pred": "a query, a key, and a value",
+          "conf": 0.999,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.195
+        },
+        {
+          "q": "How many attention heads did the original Transformer use?",
+          "gold": [
+            "eight"
+          ],
+          "pred": "eight",
+          "conf": 0.996,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.193
+        },
+        {
+          "q": "What was the model dimension of the base Transformer?",
+          "gold": [
+            "512"
+          ],
+          "pred": "512",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.195
+        },
+        {
+          "q": "How many parameters did the base Transformer have?",
+          "gold": [
+            "65 million",
+            "about 65 million"
+          ],
+          "pred": "65 million",
+          "conf": 0.887,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.188
+        },
+        {
+          "q": "How long did training on WMT 2014 take?",
+          "gold": [
+            "12 hours"
+          ],
+          "pred": "12 hours",
+          "conf": 0.998,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.189
+        },
+        {
+          "q": "What did the authors add to give the model a notion of word order?",
+          "gold": [
+            "positional encodings"
+          ],
+          "pred": "",
+          "conf": 0.0,
+          "em": 0.0,
+          "f1": 0.0,
+          "recall": 1.0,
+          "sec": 0.192
+        },
+        {
+          "q": "Which half of the Transformer does BERT use?",
+          "gold": [
+            "the encoder half",
+            "encoder"
+          ],
+          "pred": "encoder",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.189
+        },
+        {
+          "q": "What percentage of input tokens are masked in BERT pretraining?",
+          "gold": [
+            "15 percent"
+          ],
+          "pred": "",
+          "conf": 0.0,
+          "em": 0.0,
+          "f1": 0.0,
+          "recall": 1.0,
+          "sec": 0.191
+        },
+        {
+          "q": "How many parameters does BERT-base have?",
+          "gold": [
+            "110 million"
+          ],
+          "pred": "110 million",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.197
+        },
+        {
+          "q": "Who developed RoBERTa?",
+          "gold": [
+            "Facebook AI"
+          ],
+          "pred": "Facebook AI",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.197
+        },
+        {
+          "q": "What objective did RoBERTa remove?",
+          "gold": [
+            "next sentence prediction",
+            "the next sentence prediction objective"
+          ],
+          "pred": "next sentence prediction",
+          "conf": 0.999,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.193
+        },
+        {
+          "q": "How many question-answer pairs does SQuAD 1.1 contain?",
+          "gold": [
+            "over 100,000"
+          ],
+          "pred": "over 100,000",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.209
+        },
+        {
+          "q": "What does SQuAD 2.0 add?",
+          "gold": [
+            "more than 50,000 unanswerable questions",
+            "unanswerable questions"
+          ],
+          "pred": "more than 50,000 unanswerable questions",
+          "conf": 0.997,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.201
+        },
+        {
+          "q": "Which metric gives partial credit for token overlap?",
+          "gold": [
+            "F1"
+          ],
+          "pred": "F1",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.197
+        },
+        {
+          "q": "What is the capital of France?",
+          "gold": [],
+          "pred": "",
+          "conf": 0.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": null,
+          "sec": 0.193
+        },
+        {
+          "q": "How much does a GPU cost?",
+          "gold": [],
+          "pred": "",
+          "conf": 0.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": null,
+          "sec": 0.196
+        }
+      ]
+    }
+  ],
+  "tfidf": [
+    {
+      "document": "data/samples/kettle_manual.txt",
+      "n": 19,
+      "em": 0.8421052631578947,
+      "f1": 0.868421052631579,
+      "recall": 1.0,
+      "abstain_acc": 1.0,
+      "sec": 0.22594736842105265,
+      "rows": [
+        {
+          "q": "What is the capacity of the kettle?",
+          "gold": [
+            "1.7 liters"
+          ],
+          "pred": "1.7 liters",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.266
+        },
+        {
+          "q": "What is the power rating?",
+          "gold": [
+            "2200 watts"
+          ],
+          "pred": "2200 watts, 220 to 240 volts",
+          "conf": 1.0,
+          "em": 0.0,
+          "f1": 0.5,
+          "recall": 1.0,
+          "sec": 0.218
+        },
+        {
+          "q": "What is the model number?",
+          "gold": [
+            "AB-2000"
+          ],
+          "pred": "AB-2000",
+          "conf": 0.998,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.221
+        },
+        {
+          "q": "What is the minimum amount of water?",
+          "gold": [
+            "0.5 liters"
+          ],
+          "pred": "0.5 liters",
+          "conf": 0.945,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.223
+        },
+        {
+          "q": "What temperature is recommended for green tea?",
+          "gold": [
+            "60 degrees"
+          ],
+          "pred": "60 degrees",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.221
+        },
+        {
+          "q": "How long does keep warm last?",
+          "gold": [
+            "up to 30 minutes",
+            "30 minutes"
+          ],
+          "pred": "",
+          "conf": 0.0,
+          "em": 0.0,
+          "f1": 0.0,
+          "recall": 1.0,
+          "sec": 0.22
+        },
+        {
+          "q": "How many times does the kettle beep when done?",
+          "gold": [
+            "three times",
+            "three"
+          ],
+          "pred": "three",
+          "conf": 0.999,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.234
+        },
+        {
+          "q": "How long should the kettle cool after boil-dry protection activates?",
+          "gold": [
+            "10 minutes"
+          ],
+          "pred": "10 minutes",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.223
+        },
+        {
+          "q": "Which Wi-Fi band does the kettle support?",
+          "gold": [
+            "2.4 GHz"
+          ],
+          "pred": "2.4 GHz",
+          "conf": 0.899,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.222
+        },
+        {
+          "q": "How do you enter pairing mode?",
+          "gold": [
+            "Hold the KEEP WARM button for five seconds",
+            "Hold the KEEP WARM button for five seconds until the ring light flashes white"
+          ],
+          "pred": "Hold the KEEP WARM button for five seconds until the ring light flashes white",
+          "conf": 0.966,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.222
+        },
+        {
+          "q": "Which voice assistants work with the kettle?",
+          "gold": [
+            "Amazon Alexa and Google Assistant"
+          ],
+          "pred": "Amazon Alexa and Google Assistant",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.222
+        },
+        {
+          "q": "How often should the kettle be descaled?",
+          "gold": [
+            "every four to eight weeks",
+            "four to eight weeks"
+          ],
+          "pred": "every four to eight weeks",
+          "conf": 0.508,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.231
+        },
+        {
+          "q": "What should be mixed with water for descaling?",
+          "gold": [
+            "white vinegar",
+            "equal parts water and white vinegar"
+          ],
+          "pred": "",
+          "conf": 0.0,
+          "em": 0.0,
+          "f1": 0.0,
+          "recall": 1.0,
+          "sec": 0.222
+        },
+        {
+          "q": "What does a flashing red ring light mean?",
+          "gold": [
+            "boil-dry protection has activated"
+          ],
+          "pred": "boil-dry protection has activated",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.241
+        },
+        {
+          "q": "How long is the warranty?",
+          "gold": [
+            "two-year",
+            "two years"
+          ],
+          "pred": "two-year",
+          "conf": 0.987,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.222
+        },
+        {
+          "q": "Where is the serial number printed?",
+          "gold": [
+            "on the underside of the base",
+            "the underside of the base"
+          ],
+          "pred": "on the underside of the base",
+          "conf": 0.995,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.222
+        },
+        {
+          "q": "What is the support email address?",
+          "gold": [
+            "help@aquaboil.com"
+          ],
+          "pred": "help@aquaboil.com",
+          "conf": 0.921,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.221
+        },
+        {
+          "q": "What colour is the kettle?",
+          "gold": [],
+          "pred": "",
+          "conf": 0.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": null,
+          "sec": 0.222
+        },
+        {
+          "q": "How much does the kettle cost?",
+          "gold": [],
+          "pred": "",
+          "conf": 0.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": null,
+          "sec": 0.22
+        }
+      ]
+    },
+    {
+      "document": "data/samples/syllabus.txt",
+      "n": 18,
+      "em": 0.8333333333333334,
+      "f1": 0.8636363636363636,
+      "recall": 1.0,
+      "abstain_acc": 1.0,
+      "sec": 0.18977777777777777,
+      "rows": [
+        {
+          "q": "Who is the instructor?",
+          "gold": [
+            "Dr. Priya Raman",
+            "Priya Raman"
+          ],
+          "pred": "Dr. Priya Raman",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.183
+        },
+        {
+          "q": "Where is the instructor's office?",
+          "gold": [
+            "Engineering Block B, Room 312",
+            "Room 312"
+          ],
+          "pred": "Engineering Block B, Room 312",
+          "conf": 0.997,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.189
+        },
+        {
+          "q": "When are office hours?",
+          "gold": [
+            "Tuesdays and Thursdays, 2:00 pm to 4:00 pm"
+          ],
+          "pred": "Tuesdays and Thursdays",
+          "conf": 0.999,
+          "em": 0.0,
+          "f1": 0.5454545454545454,
+          "recall": 1.0,
+          "sec": 0.183
+        },
+        {
+          "q": "Who is the teaching assistant?",
+          "gold": [
+            "Arjun Mehta"
+          ],
+          "pred": "Arjun Mehta",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.202
+        },
+        {
+          "q": "What is the prerequisite for this course?",
+          "gold": [
+            "CS 3310 Machine Learning",
+            "CS 3310"
+          ],
+          "pred": "CS 3310 Machine Learning",
+          "conf": 0.989,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.192
+        },
+        {
+          "q": "When is the midterm examination?",
+          "gold": [
+            "Friday, October 10",
+            "October 10"
+          ],
+          "pred": "Friday, October 10",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.185
+        },
+        {
+          "q": "What is covered in week 9?",
+          "gold": [
+            "Attention and the Transformer architecture"
+          ],
+          "pred": "Attention and the Transformer architecture",
+          "conf": 0.997,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.189
+        },
+        {
+          "q": "How much of the grade is the final project worth?",
+          "gold": [
+            "25 percent"
+          ],
+          "pred": "25 percent",
+          "conf": 0.977,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.189
+        },
+        {
+          "q": "How much is each programming assignment worth?",
+          "gold": [
+            "10 percent"
+          ],
+          "pred": "10 percent",
+          "conf": 0.817,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.192
+        },
+        {
+          "q": "What minimum score is required on the final exam to pass?",
+          "gold": [
+            "40 percent",
+            "at least 40 percent"
+          ],
+          "pred": "40 percent",
+          "conf": 0.996,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.192
+        },
+        {
+          "q": "Which dataset is used in assignment 2?",
+          "gold": [
+            "CIFAR-10"
+          ],
+          "pred": "CIFAR-10",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.191
+        },
+        {
+          "q": "What is the late penalty?",
+          "gold": [
+            "10 percent per day"
+          ],
+          "pred": "",
+          "conf": 0.0,
+          "em": 0.0,
+          "f1": 0.0,
+          "recall": 1.0,
+          "sec": 0.186
+        },
+        {
+          "q": "How many students are in a project team?",
+          "gold": [
+            "two or three"
+          ],
+          "pred": "",
+          "conf": 0.0,
+          "em": 0.0,
+          "f1": 0.0,
+          "recall": 1.0,
+          "sec": 0.194
+        },
+        {
+          "q": "Who wrote the textbook?",
+          "gold": [
+            "Ian Goodfellow, Yoshua Bengio, and Aaron Courville"
+          ],
+          "pred": "Ian Goodfellow, Yoshua Bengio, and Aaron Courville",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.188
+        },
+        {
+          "q": "Which Python version is used?",
+          "gold": [
+            "Python 3.10",
+            "3.10"
+          ],
+          "pred": "3.10",
+          "conf": 0.968,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.192
+        },
+        {
+          "q": "What happens if a student plagiarises?",
+          "gold": [
+            "a grade of zero for the assignment and referral to the academic integrity office",
+            "a grade of zero"
+          ],
+          "pred": "a grade of zero for the assignment and referral to the academic integrity office",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.193
+        },
+        {
+          "q": "What is the course fee?",
+          "gold": [],
+          "pred": "",
+          "conf": 0.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": null,
+          "sec": 0.186
+        },
+        {
+          "q": "Which room is the final exam held in?",
+          "gold": [],
+          "pred": "",
+          "conf": 0.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": null,
+          "sec": 0.19
+        }
+      ]
+    },
+    {
+      "document": "data/samples/transformers.txt",
+      "n": 19,
+      "em": 0.8947368421052632,
+      "f1": 0.8947368421052632,
+      "recall": 1.0,
+      "abstain_acc": 1.0,
+      "sec": 0.186,
+      "rows": [
+        {
+          "q": "Who proposed the Transformer?",
+          "gold": [
+            "Vaswani and colleagues at Google",
+            "Vaswani"
+          ],
+          "pred": "Vaswani and colleagues at Google",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.183
+        },
+        {
+          "q": "In which year was the Transformer introduced?",
+          "gold": [
+            "2017"
+          ],
+          "pred": "2017",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.186
+        },
+        {
+          "q": "What is the title of the Transformer paper?",
+          "gold": [
+            "Attention Is All You Need"
+          ],
+          "pred": "Attention Is All You Need\".",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.201
+        },
+        {
+          "q": "What are the three vectors computed for every token in self-attention?",
+          "gold": [
+            "a query, a key, and a value",
+            "query, key, and value"
+          ],
+          "pred": "a query, a key, and a value",
+          "conf": 0.999,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.185
+        },
+        {
+          "q": "How many attention heads did the original Transformer use?",
+          "gold": [
+            "eight"
+          ],
+          "pred": "eight",
+          "conf": 0.996,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.184
+        },
+        {
+          "q": "What was the model dimension of the base Transformer?",
+          "gold": [
+            "512"
+          ],
+          "pred": "512",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.185
+        },
+        {
+          "q": "How many parameters did the base Transformer have?",
+          "gold": [
+            "65 million",
+            "about 65 million"
+          ],
+          "pred": "65 million",
+          "conf": 0.887,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.184
+        },
+        {
+          "q": "How long did training on WMT 2014 take?",
+          "gold": [
+            "12 hours"
+          ],
+          "pred": "12 hours",
+          "conf": 0.998,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.186
+        },
+        {
+          "q": "What did the authors add to give the model a notion of word order?",
+          "gold": [
+            "positional encodings"
+          ],
+          "pred": "",
+          "conf": 0.0,
+          "em": 0.0,
+          "f1": 0.0,
+          "recall": 1.0,
+          "sec": 0.185
+        },
+        {
+          "q": "Which half of the Transformer does BERT use?",
+          "gold": [
+            "the encoder half",
+            "encoder"
+          ],
+          "pred": "encoder",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.185
+        },
+        {
+          "q": "What percentage of input tokens are masked in BERT pretraining?",
+          "gold": [
+            "15 percent"
+          ],
+          "pred": "",
+          "conf": 0.0,
+          "em": 0.0,
+          "f1": 0.0,
+          "recall": 1.0,
+          "sec": 0.185
+        },
+        {
+          "q": "How many parameters does BERT-base have?",
+          "gold": [
+            "110 million"
+          ],
+          "pred": "110 million",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.186
+        },
+        {
+          "q": "Who developed RoBERTa?",
+          "gold": [
+            "Facebook AI"
+          ],
+          "pred": "Facebook AI",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.184
+        },
+        {
+          "q": "What objective did RoBERTa remove?",
+          "gold": [
+            "next sentence prediction",
+            "the next sentence prediction objective"
+          ],
+          "pred": "next sentence prediction",
+          "conf": 0.999,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.188
+        },
+        {
+          "q": "How many question-answer pairs does SQuAD 1.1 contain?",
+          "gold": [
+            "over 100,000"
+          ],
+          "pred": "over 100,000",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.185
+        },
+        {
+          "q": "What does SQuAD 2.0 add?",
+          "gold": [
+            "more than 50,000 unanswerable questions",
+            "unanswerable questions"
+          ],
+          "pred": "more than 50,000 unanswerable questions",
+          "conf": 0.997,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.184
+        },
+        {
+          "q": "Which metric gives partial credit for token overlap?",
+          "gold": [
+            "F1"
+          ],
+          "pred": "F1",
+          "conf": 1.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": 1.0,
+          "sec": 0.183
+        },
+        {
+          "q": "What is the capital of France?",
+          "gold": [],
+          "pred": "",
+          "conf": 0.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": null,
+          "sec": 0.186
+        },
+        {
+          "q": "How much does a GPU cost?",
+          "gold": [],
+          "pred": "",
+          "conf": 0.0,
+          "em": 1.0,
+          "f1": 1.0,
+          "recall": null,
+          "sec": 0.189
+        }
+      ]
+    }
+  ]
+}

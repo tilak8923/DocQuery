@@ -1,0 +1,51 @@
+CS 4420: Deep Learning — Course Syllabus
+
+Instructor: Dr. Priya Raman
+Office: Engineering Block B, Room 312
+Office hours: Tuesdays and Thursdays, 2:00 pm to 4:00 pm
+Email: p.raman@university.edu
+Teaching assistant: Arjun Mehta, Lab 207
+
+Course description
+This course introduces the theory and practice of deep neural networks. Students will learn how to design, train, and evaluate models for vision, language, and sequential data. The course assumes familiarity with linear algebra, probability, and Python programming. CS 3310 Machine Learning is a prerequisite.
+
+Learning outcomes
+By the end of the course students should be able to implement backpropagation from scratch, train convolutional and recurrent networks using PyTorch, apply regularization techniques such as dropout and batch normalization, and read and reproduce results from a recent research paper.
+
+Schedule
+Week 1: Introduction, perceptrons, and the history of neural networks.
+Week 2: Multilayer networks, activation functions, and backpropagation.
+Week 3: Optimization: stochastic gradient descent, momentum, and Adam.
+Week 4: Regularization, dropout, early stopping, and data augmentation.
+Week 5: Convolutional neural networks and image classification.
+Week 6: Transfer learning and fine-tuning pretrained vision models.
+Week 7: Midterm examination on Friday, October 10.
+Week 8: Recurrent networks, LSTMs, and sequence modeling.
+Week 9: Attention and the Transformer architecture.
+Week 10: Word embeddings and pretrained language models such as BERT.
+Week 11: Generative models: autoencoders and generative adversarial networks.
+Week 12: Reinforcement learning basics and deep Q-networks.
+Week 13: Project presentations.
+Week 14: Review and final examination.
+
+Assessment
+Four programming assignments: 40 percent of the final grade (10 percent each).
+Midterm examination: 20 percent.
+Final project: 25 percent, completed in teams of two or three students.
+Final examination: 15 percent.
+Students must score at least 40 percent on the final examination to pass the course.
+
+Programming assignments
+Assignment 1 implements a two-layer network with NumPy only. Assignment 2 trains a CNN on the CIFAR-10 dataset. Assignment 3 builds a character-level language model with an LSTM. Assignment 4 fine-tunes a pretrained Transformer for text classification. Assignments are due at 11:59 pm on the Sunday of the week they are released. Late submissions lose 10 percent per day and are not accepted after three days.
+
+Final project
+Teams propose a project by Week 6 and submit a four-page report and a 10-minute presentation in Week 13. Projects are graded on technical depth, experimental rigor, and clarity of presentation. Using a publicly available dataset is encouraged; collecting new data is not required.
+
+Textbook
+The primary textbook is Deep Learning by Ian Goodfellow, Yoshua Bengio, and Aaron Courville, published by MIT Press in 2016. It is freely available online. Supplementary readings will be posted on the course website.
+
+Policies
+Attendance is not graded but strongly recommended. Collaboration on assignments is allowed for discussion only; all submitted code must be written individually. Plagiarism results in a grade of zero for the assignment and referral to the academic integrity office. Students requiring accommodations should contact the instructor within the first two weeks.
+
+Software
+All assignments use Python 3.10 and PyTorch 2.x. Free GPU access is provided through Google Colab. Students may also use the department's GPU cluster by requesting an account from the teaching assistant.

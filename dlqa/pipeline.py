@@ -39,15 +39,18 @@ class DocumentQA:
         retriever: str = "dense",
         chunk_words: int = 180,
         overlap_words: int = 40,
-        top_k: int = 3,
+        top_k: int = 5,  # chosen by scripts/sweep.py: Recall@5 = 1.00 on the eval sets
         min_confidence: float = 0.05,
+        null_margin: float = 0.0,  # >0 answers more often but breaks abstaining; see data/eval/sweep.json
+        reader: ExtractiveReader | None = None,
     ):
         self.chunk_words = chunk_words
         self.overlap_words = overlap_words
         self.top_k = top_k
         self.min_confidence = min_confidence
         self.retriever = DenseRetriever() if retriever == "dense" else TfidfRetriever()
-        self.reader = ExtractiveReader()
+        # Allow sharing one loaded reader across pipelines (used by sweeps).
+        self.reader = reader or ExtractiveReader(null_margin=null_margin)
         self.chunks: list[Chunk] = []
         self.text: str = ""
 

@@ -1,0 +1,38 @@
+AquaBoil Pro Smart Kettle — User Manual
+
+Model: AB-2000
+Capacity: 1.7 liters
+Power: 2200 watts, 220 to 240 volts
+Weight: 1.2 kilograms without water
+
+Thank you for purchasing the AquaBoil Pro. Please read this manual fully before first use and keep it for future reference.
+
+Safety instructions
+Do not immerse the kettle base or the power cord in water. Use the kettle only with the base supplied. Do not fill above the MAX line, as boiling water may spit from the spout. Do not operate the kettle with less than 0.5 liters of water, which is the MIN line. Keep the kettle out of reach of children. The outer surface becomes hot during use; lift the kettle only by its handle. If the power cord is damaged, it must be replaced by the manufacturer or an authorised service agent.
+
+Before first use
+Fill the kettle to the MAX line, boil the water, and discard it. Repeat this process twice to remove any manufacturing residue.
+
+Controls
+The kettle has four temperature buttons on the handle: 60 degrees for green tea, 80 degrees for white tea and coffee, 90 degrees for oolong tea, and 100 degrees for black tea and general boiling. The KEEP WARM button holds the selected temperature for up to 30 minutes. A blue ring light around the base glows while heating and turns solid when the target temperature is reached. The kettle beeps three times when heating is complete.
+
+Boiling water
+Remove the kettle from the base and open the lid by pressing the lid release button on the handle. Fill with fresh cold water between the MIN and MAX lines. Close the lid firmly, place the kettle on the base, and press the desired temperature button. The kettle switches off automatically when the target temperature is reached. To stop heating early, press the same temperature button again or lift the kettle off the base.
+
+Boil-dry protection
+If the kettle is switched on with no water, the boil-dry protection cuts the power automatically. Allow the kettle to cool for 10 minutes before refilling and using it again.
+
+Smart features
+The AquaBoil Pro connects to your home Wi-Fi on the 2.4 GHz band only. Download the AquaBoil app from the App Store or Google Play, create an account, and follow the on-screen pairing steps. Hold the KEEP WARM button for five seconds until the ring light flashes white to enter pairing mode. The app lets you schedule boiling, set a custom temperature between 40 and 100 degrees, and receive a notification when the water is ready. The kettle also works with Amazon Alexa and Google Assistant.
+
+Cleaning and descaling
+Unplug the kettle and allow it to cool before cleaning. Wipe the exterior with a damp cloth. Never use abrasive cleaners. Descale every four to eight weeks depending on water hardness. Fill the kettle with equal parts water and white vinegar to the MAX line, boil, and let it stand for one hour. Empty the kettle, rinse three times with clean water, and boil once with fresh water before use. The removable filter inside the spout can be rinsed under running water.
+
+Troubleshooting
+Kettle does not switch on: check that the base is plugged in and the kettle is seated correctly on the base.
+Kettle switches off before boiling: the heating plate may have limescale; descale the kettle.
+Ring light flashes red: boil-dry protection has activated; let the kettle cool for 10 minutes.
+App cannot find the kettle: make sure your phone is on the 2.4 GHz Wi-Fi network and the kettle is in pairing mode.
+
+Warranty
+The AquaBoil Pro is covered by a two-year limited warranty from the date of purchase. The warranty does not cover damage caused by limescale buildup, misuse, or unauthorised repair. To make a claim, contact support at help@aquaboil.com with your proof of purchase and serial number, which is printed on the underside of the base.

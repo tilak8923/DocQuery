@@ -43,6 +43,19 @@ sample from `data/samples/`), ask questions in the chat, and expand **Evidence p
 to see the highlighted span the answer was taken from. The sidebar lets you switch
 between the dense neural retriever and the TF-IDF keyword baseline for comparison.
 
+## Evaluate
+
+```bash
+.venv/bin/python scripts/evaluate.py
+```
+
+Runs the hand-written question sets in `data/eval/*.json` through the pipeline with both
+retrievers and writes `data/eval/results.md` (EM, F1, Recall@k, abstain accuracy, latency).
+`scripts/sweep.py` repeats this across chunk sizes, top-k and the null margin.
+
+Current results (56 questions, 3 documents, CPU): EM 0.86, F1 0.88, Recall@5 1.00,
+abstain accuracy 1.00, ~0.2 s per question.
+
 ## How it works
 
 1. `dlqa/loader.py` extracts text from PDF / DOCX / TXT.

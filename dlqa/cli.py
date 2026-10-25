@@ -15,7 +15,7 @@ def main() -> None:
     p.add_argument("document")
     p.add_argument("question", nargs="?")
     p.add_argument("--retriever", choices=["dense", "tfidf"], default="dense")
-    p.add_argument("--top-k", type=int, default=3)
+    p.add_argument("--top-k", type=int, default=5)
     p.add_argument("--show-chunks", action="store_true", help="print retrieved chunks")
     args = p.parse_args()
 

@@ -1,0 +1,24 @@
+{
+  "document": "data/samples/kettle_manual.txt",
+  "questions": [
+    {"q": "What is the capacity of the kettle?", "a": ["1.7 liters"]},
+    {"q": "What is the power rating?", "a": ["2200 watts"]},
+    {"q": "What is the model number?", "a": ["AB-2000"]},
+    {"q": "What is the minimum amount of water?", "a": ["0.5 liters"]},
+    {"q": "What temperature is recommended for green tea?", "a": ["60 degrees"]},
+    {"q": "How long does keep warm last?", "a": ["up to 30 minutes", "30 minutes"]},
+    {"q": "How many times does the kettle beep when done?", "a": ["three times", "three"]},
+    {"q": "How long should the kettle cool after boil-dry protection activates?", "a": ["10 minutes"]},
+    {"q": "Which Wi-Fi band does the kettle support?", "a": ["2.4 GHz"]},
+    {"q": "How do you enter pairing mode?", "a": ["Hold the KEEP WARM button for five seconds", "Hold the KEEP WARM button for five seconds until the ring light flashes white"]},
+    {"q": "Which voice assistants work with the kettle?", "a": ["Amazon Alexa and Google Assistant"]},
+    {"q": "How often should the kettle be descaled?", "a": ["every four to eight weeks", "four to eight weeks"]},
+    {"q": "What should be mixed with water for descaling?", "a": ["white vinegar", "equal parts water and white vinegar"]},
+    {"q": "What does a flashing red ring light mean?", "a": ["boil-dry protection has activated"]},
+    {"q": "How long is the warranty?", "a": ["two-year", "two years"]},
+    {"q": "Where is the serial number printed?", "a": ["on the underside of the base", "the underside of the base"]},
+    {"q": "What is the support email address?", "a": ["help@aquaboil.com"]},
+    {"q": "What colour is the kettle?", "a": []},
+    {"q": "How much does the kettle cost?", "a": []}
+  ]
+}

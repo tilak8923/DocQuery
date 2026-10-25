@@ -1,0 +1,23 @@
+{
+  "document": "data/samples/syllabus.txt",
+  "questions": [
+    {"q": "Who is the instructor?", "a": ["Dr. Priya Raman", "Priya Raman"]},
+    {"q": "Where is the instructor's office?", "a": ["Engineering Block B, Room 312", "Room 312"]},
+    {"q": "When are office hours?", "a": ["Tuesdays and Thursdays, 2:00 pm to 4:00 pm"]},
+    {"q": "Who is the teaching assistant?", "a": ["Arjun Mehta"]},
+    {"q": "What is the prerequisite for this course?", "a": ["CS 3310 Machine Learning", "CS 3310"]},
+    {"q": "When is the midterm examination?", "a": ["Friday, October 10", "October 10"]},
+    {"q": "What is covered in week 9?", "a": ["Attention and the Transformer architecture"]},
+    {"q": "How much of the grade is the final project worth?", "a": ["25 percent"]},
+    {"q": "How much is each programming assignment worth?", "a": ["10 percent"]},
+    {"q": "What minimum score is required on the final exam to pass?", "a": ["40 percent", "at least 40 percent"]},
+    {"q": "Which dataset is used in assignment 2?", "a": ["CIFAR-10"]},
+    {"q": "What is the late penalty?", "a": ["10 percent per day"]},
+    {"q": "How many students are in a project team?", "a": ["two or three"]},
+    {"q": "Who wrote the textbook?", "a": ["Ian Goodfellow, Yoshua Bengio, and Aaron Courville"]},
+    {"q": "Which Python version is used?", "a": ["Python 3.10", "3.10"]},
+    {"q": "What happens if a student plagiarises?", "a": ["a grade of zero for the assignment and referral to the academic integrity office", "a grade of zero"]},
+    {"q": "What is the course fee?", "a": []},
+    {"q": "Which room is the final exam held in?", "a": []}
+  ]
+}

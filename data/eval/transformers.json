@@ -1,0 +1,24 @@
+{
+  "document": "data/samples/transformers.txt",
+  "questions": [
+    {"q": "Who proposed the Transformer?", "a": ["Vaswani and colleagues at Google", "Vaswani"]},
+    {"q": "In which year was the Transformer introduced?", "a": ["2017"]},
+    {"q": "What is the title of the Transformer paper?", "a": ["Attention Is All You Need"]},
+    {"q": "What are the three vectors computed for every token in self-attention?", "a": ["a query, a key, and a value", "query, key, and value"]},
+    {"q": "How many attention heads did the original Transformer use?", "a": ["eight"]},
+    {"q": "What was the model dimension of the base Transformer?", "a": ["512"]},
+    {"q": "How many parameters did the base Transformer have?", "a": ["65 million", "about 65 million"]},
+    {"q": "How long did training on WMT 2014 take?", "a": ["12 hours"]},
+    {"q": "What did the authors add to give the model a notion of word order?", "a": ["positional encodings"]},
+    {"q": "Which half of the Transformer does BERT use?", "a": ["the encoder half", "encoder"]},
+    {"q": "What percentage of input tokens are masked in BERT pretraining?", "a": ["15 percent"]},
+    {"q": "How many parameters does BERT-base have?", "a": ["110 million"]},
+    {"q": "Who developed RoBERTa?", "a": ["Facebook AI"]},
+    {"q": "What objective did RoBERTa remove?", "a": ["next sentence prediction", "the next sentence prediction objective"]},
+    {"q": "How many question-answer pairs does SQuAD 1.1 contain?", "a": ["over 100,000"]},
+    {"q": "What does SQuAD 2.0 add?", "a": ["more than 50,000 unanswerable questions", "unanswerable questions"]},
+    {"q": "Which metric gives partial credit for token overlap?", "a": ["F1"]},
+    {"q": "What is the capital of France?", "a": []},
+    {"q": "How much does a GPU cost?", "a": []}
+  ]
+}
