@@ -1,0 +1,269 @@
+<title>DocQuery Team Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; the pipeline is a horizontal rail that animates; the reader demo is a token strip with logit bars. */
+:root{
+  --bg:#f6f4ee; --paper:#fffdf8; --fg:#1d2230; --muted:#5a6273; --line:#d9d4c7;
+  --accent:#b4531a; --accent-ink:#fff; --mark:#ffe15a; --ok:#2f7d4f; --warn:#b03a2e;
+  --code-bg:#edeae0;
+  --display:"Sora",system-ui,sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#13161d; --paper:#1b1f28; --fg:#ecebe4; --muted:#a3a9b8; --line:#2f3542;
+  --accent:#f0884a; --accent-ink:#13161d; --mark:#8a6d00; --ok:#6fcf97; --warn:#ef7a6e; --code-bg:#242a36; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#13161d; --paper:#1b1f28; --fg:#ecebe4; --muted:#a3a9b8; --line:#2f3542;
+  --accent:#f0884a; --accent-ink:#13161d; --mark:#8a6d00; --ok:#6fcf97; --warn:#ef7a6e; --code-bg:#242a36; color-scheme:dark }
+
+body{background:var(--bg);color:var(--fg);font-family:var(--body);line-height:1.55;font-size:16px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+.wrap{max-width:860px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(28px,5vw,40px);font-weight:700}
+h2{font-size:clamp(20px,3vw,26px);margin-top:48px;padding-top:24px;border-top:1px solid var(--line)}
+h3{font-size:17px;margin-top:20px}
+p{margin:10px 0;max-width:68ch}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header{padding-block:40px 8px}
+header p.lead{font-size:18px;color:var(--muted);max-width:60ch}
+code,pre{font-family:var(--mono);font-size:13.5px}
+code{background:var(--code-bg);padding:1px 5px;border-radius:4px}
+pre{background:var(--code-bg);padding:12px 14px;border-radius:6px;overflow-x:auto;line-height:1.5}
+mark{background:var(--mark);color:var(--fg);padding:0 2px;border-radius:2px}
+ul,ol{padding-left:22px;max-width:70ch}
+li{margin:4px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;font-variant-numeric:tabular-nums}
+.tbl{overflow-x:auto}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.note{border-left:3px solid var(--accent);padding:8px 14px;background:var(--paper);margin:14px 0;max-width:70ch}
+.pill{display:inline-block;font-family:var(--mono);font-size:12px;padding:2px 8px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+button{font:inherit;cursor:pointer}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;padding:8px 14px;border-radius:6px;font-weight:600}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn:focus-visible,.stage:focus-visible,.qa summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---- pipeline rail ---- */
+.rail{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:18px 0 10px;position:relative}
+.stage{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 8px;text-align:center;min-width:0;transition:transform .25s,border-color .25s,box-shadow .25s}
+.stage .n{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.stage .t{font-family:var(--display);font-size:13.5px;font-weight:500;margin-top:2px}
+.stage .nn{font-size:11px;color:var(--muted);margin-top:4px}
+.stage.active{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent);transform:translateY(-3px)}
+.stage.nn-yes .nn{color:var(--accent);font-weight:600}
+.puck{position:absolute;top:-14px;left:0;width:22px;height:22px;border-radius:50%;background:var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.25);transition:left .6s cubic-bezier(.4,0,.2,1)}
+.explain{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:14px 16px;min-height:120px}
+.explain h3{margin-top:0}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+@media (max-width:640px){.rail{grid-template-columns:repeat(3,1fr)}.puck{display:none}}
+
+/* ---- reader demo ---- */
+.tokens{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0;align-items:flex-end}
+.tok{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.tok .w{font-family:var(--mono);font-size:12.5px;padding:3px 6px;border:1px solid var(--line);border-radius:4px;background:var(--paper);transition:background .3s}
+.tok .bars{display:flex;gap:2px;align-items:flex-end;height:48px}
+.tok .bar{width:7px;background:var(--line);border-radius:2px 2px 0 0;transition:height .5s,background .3s}
+.tok .bar.s{background:color-mix(in srgb,var(--ok) 70%,transparent)}
+.tok .bar.e{background:color-mix(in srgb,var(--accent) 70%,transparent)}
+.tok.q .w{color:var(--muted);border-style:dashed}
+.tok.span .w{background:var(--mark)}
+.tok.null .w{border-color:var(--warn);color:var(--warn)}
+.legend{font-size:13px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.score{font-family:var(--mono);font-size:13.5px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin-top:8px}
+.verdict{font-weight:600}
+.verdict.ok{color:var(--ok)} .verdict.no{color:var(--warn)}
+
+/* ---- numbers ---- */
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
+.num{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px}
+.num b{font-family:var(--display);font-size:26px;display:block;font-variant-numeric:tabular-nums}
+.num span{font-size:12.5px;color:var(--muted)}
+
+/* ---- Q&A ---- */
+.qa{border:1px solid var(--line);border-radius:8px;margin:8px 0;background:var(--paper)}
+.qa summary{padding:10px 14px;cursor:pointer;font-weight:600;list-style:none}
+.qa summary::before{content:"+";font-family:var(--mono);color:var(--accent);margin-right:10px}
+.qa[open] summary::before{content:"–"}
+.qa div{padding:0 14px 12px;color:var(--fg)}
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.role{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.role .who{font-family:var(--mono);font-size:12px;color:var(--accent)}
+@media (prefers-reduced-motion: reduce){.puck,.stage,.tok .bar{transition:none}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Deep Learning-Based Document Question Answering</div>
+  <h1>DocQuery Team Guide</h1>
+  <p class="lead">Paanch logon ke liye ek page: project andar se kaise chalta hai, humne kya banaya, aur instructor ke sawaalon ka jawaab kaise dena hai. Technical shabd English mein hain kyunki viva mein wahi bolne hain.</p>
+  <p><span class="pill">3 neural networks</span> <span class="pill">F1 0.89</span> <span class="pill">abstain 6/6</span> <span class="pill">0.2 s / question, CPU</span></p>
+</header>
+
+<h2 id="kya">1. Project ek line mein</h2>
+<div class="note">User koi bhi document upload karta hai, sawaal poochta hai, aur system <b>us document ke andar se exact jawaab</b> nikaal ke deta hai, evidence aur page number ke saath. Jawaab document mein nahi hai toh saaf bolta hai "nahi hai".</div>
+<p>Yeh chatbot nahi hai. Chatbot apne dimaag se bolta hai; yeh sirf document se bolta hai. Technical naam: <b>Extractive Question Answering</b>, matlab span extraction.</p>
+
+<h2 id="pipeline">2. Pipeline: 6 steps, animate karke dekho</h2>
+<p>Play dabao. Orange dot document aur sawaal ke raaste pe chalega aur har step ka matlab neeche aayega. Kisi bhi box pe click karke seedha wahan jaa sakte ho.</p>
+<div class="controls">
+  <button class="btn" id="play">▶ Play</button>
+  <button class="btn ghost" id="prev">◀ Pichla</button>
+  <button class="btn ghost" id="next">Agla ▶</button>
+</div>
+<div class="rail" id="rail">
+  <div class="puck" id="puck"></div>
+  <button class="stage" data-i="0"><div class="n">1</div><div class="t">Loader</div><div class="nn">no NN</div></button>
+  <button class="stage" data-i="1"><div class="n">2</div><div class="t">Chunker</div><div class="nn">no NN</div></button>
+  <button class="stage nn-yes" data-i="2"><div class="n">3</div><div class="t">Embeddings</div><div class="nn">NN #1</div></button>
+  <button class="stage" data-i="3"><div class="n">4</div><div class="t">FAISS</div><div class="nn">search</div></button>
+  <button class="stage nn-yes" data-i="4"><div class="n">5</div><div class="t">Reader</div><div class="nn">NN #2</div></button>
+  <button class="stage nn-yes" data-i="5"><div class="n">6</div><div class="t">Generator</div><div class="nn">NN #3, optional</div></button>
+</div>
+<div class="explain" id="explain"></div>
+
+<h2 id="reader">3. Reader andar se: span kaise nikalta hai</h2>
+<p>Yeh project ka dil hai aur yeh code humne khud likha hai (<code>dlqa/reader.py</code>). Model har token ke liye do numbers deta hai: <b>start logit</b> (hara) aur <b>end logit</b> (orange). Sabse achha (start, end) pair hi jawaab hai. Pehle token <code>&lt;s&gt;</code> ka score "jawaab nahi hai" ka score hai.</p>
+<div class="controls">
+  <button class="btn" id="demoFound">Sawaal: How long is the warranty?</button>
+  <button class="btn ghost" id="demoNull">Sawaal: How much does it cost?</button>
+</div>
+<div class="legend"><span><i style="background:color-mix(in srgb,var(--ok) 70%,transparent)"></i>start logit</span><span><i style="background:color-mix(in srgb,var(--accent) 70%,transparent)"></i>end logit</span><span><i style="background:var(--mark)"></i>chosen span</span></div>
+<div class="tokens" id="tokens"></div>
+<div class="score" id="score"></div>
+<div class="note">Rule: <code>score(span) = start_logit[i] + end_logit[j]</code>, sirf <code>j ≥ i</code>, span ≤ 40 tokens, passage ke andar. <code>null = start_logit[0] + end_logit[0]</code>. Null jeeta toh "not found". Upar se confidence &lt; 0.6 ho toh bhi "not found" (evaluation se nikala threshold).</div>
+
+<h2 id="background">4. Background concepts (viva ke liye)</h2>
+<h3>Transformer aur self-attention (2017, "Attention Is All You Need")</h3>
+<p>RNN tokens ek-ek karke padhta tha; Transformer saare tokens ek saath dekhta hai. Har token ke teen vectors: <b>Query, Key, Value</b>. Score = softmax(Q·Kᵀ/√d), output = scores × V ka weighted sum. Matlab: har shabd baaki shabdon ko dekh ke apna matlab tay karta hai. 8–12 heads parallel chalte hain; position batane ke liye positional encoding jodte hain.</p>
+<h3>BERT → RoBERTa</h3>
+<p>BERT (2018) sirf encoder hai. Pretraining: 15% tokens chhupa ke predict karo (masked language modeling). RoBERTa (2019) wahi architecture, 10× data aur behtar training. Pehle bade data pe <b>pretrain</b>, phir chhote task pe <b>fine-tune</b>.</p>
+<h3>SQuAD 2.0</h3>
+<p>Stanford ka dataset: Wikipedia passages pe 100k+ sawaal, jawaab passage ka span. Version 2.0 mein 50k <b>unanswerable</b> sawaal bhi hain, isliye model "nahi pata" bolna seekhta hai. Fine-tuning loss: start index pe cross-entropy + end index pe cross-entropy, average. Metrics: <b>Exact Match</b> aur <b>F1</b> (token overlap, partial credit).</p>
+<h3>Embeddings aur cosine similarity</h3>
+<p>Sentence-BERT tareeke se trained model (MiniLM) har text ko 384 numbers ke vector mein badalta hai; same matlab = paas vectors. Cosine similarity vector ki length ignore karke sirf direction compare karti hai. Normalised vectors ka dot product = cosine, isliye FAISS mein inner product use karte hain.</p>
+<h3>Dense vs TF-IDF (sidebar ka Advanced option)</h3>
+<p><b>TF-IDF</b> keyword matching hai, koi neural network nahi: "warranty" poocho toh jahan "warranty" likha hai wahi chunk. <b>Dense</b> matlab se dhoondhta hai: "smart speakers" poocho toh "Alexa and Google Assistant" wala chunk milta hai, jabki "speaker" shabd document mein hai hi nahi. Option isliye rakha taaki baseline vs deep learning live dikha sakein.</p>
+
+<h2 id="kiya">5. Humne kya kiya (confidently bolo)</h2>
+<div class="nums">
+  <div class="num"><b>56</b><span>hand-written questions, 3 docs, 6 unanswerable</span></div>
+  <div class="num"><b>0.89</b><span>F1 (Exact Match 0.88)</span></div>
+  <div class="num"><b>1.00</b><span>Recall@5: sahi passage hamesha top-5 mein</span></div>
+  <div class="num"><b>6/6</b><span>unanswerable pe sahi abstain</span></div>
+  <div class="num"><b>0.2 s</b><span>per question, laptop CPU</span></div>
+</div>
+<ol>
+  <li><b>Poora pipeline khud banaya</b>: loader, structure-aware chunker, retriever, reader ka span-extraction aur abstain logic, multi-document citations, follow-up handling.</li>
+  <li><b>Koi bhi document</b>: PDF (tables, pages), Word, PowerPoint, Excel, CSV, HTML, text, scanned images via OCR.</li>
+  <li><b>Do modes</b>: extractive (exact span) aur generative (Flan-T5 ka grounded sentence), toggle se. Generator sirf tab bolta hai jab reader ne span dhoondha ho; free generation mein usne kettle ka price "1.2 kilograms" bata diya tha, isliye band kiya.</li>
+  <li><b>Evaluation framework</b>: EM, F1, Recall@k, abstain accuracy, latency; sab script se reproducible.</li>
+  <li><b>Tuning measurement se</b>: top-k 3→5 se F1 0.78→0.88. Abstain threshold loose karne pe F1 0.93 lekin system price ka jawaab "1.7 liters" dene laga, isliye strict rakha. Confidence floor 0.6: galat jawaab sab &lt; 0.6 the, sahi sab &gt; 0.7.</li>
+  <li><b>Deployed</b>: GitHub, Streamlit Cloud (live), Docker, CI tests.</li>
+</ol>
+
+<h2 id="jawaab">6. "Yeh toh normal web app hai"</h2>
+<div class="note"><b>Pehli line:</b> "Web page sirf input-output window hai, 150 lines ka. Project uske peeche teen neural networks ka pipeline hai."</div>
+<p>Phir bolo mat, <b>dikhao</b>, is order mein:</p>
+<ol>
+  <li><i>How much does the kettle cost?</i> → system mana karta hai. Normal app yeh nahi karta.</li>
+  <li><i>Which smart speakers does it work with?</i> → "speaker" shabd document mein nahi, phir bhi sahi jawaab. Keyword search yeh nahi kar sakta.</li>
+  <li>Evidence expand karo → highlighted span, file, page, section.</li>
+  <li><code>dlqa/reader.py</code> kholo → start/end logits, null score, argmax. Humara code.</li>
+</ol>
+<p><b>Unique kya hai:</b> jawaab kabhi invent nahi hota (hallucination-free by design); kisi bhi document type pe structure ke saath chalta hai; laptop CPU pe offline, koi API cost nahi; numbers ke saath evaluate kiya, guess se nahi.</p>
+
+<h2 id="qa">7. Sawaal-jawaab bank</h2>
+<details class="qa"><summary>Poora document model ko kyun nahi dete?</summary><div>Transformer ~512 tokens hi le sakta hai, aur har chunk pe reader chalana slow hai. Retriever pehle 5 relevant chunks chunta hai, reader sirf unpe chalta hai. Cost O(top-k), document ki length se independent.</div></details>
+<details class="qa"><summary>Training kyun nahi ki? Bas library call kiya?</summary><div>Model pehle hi SQuAD 2.0 ke 180k examples pe fine-tuned hai; wahi data pe dobara train karne se wahi result aata, sirf GPU jalta. Training tab useful hai jab apne domain ke hazaaron Q/A pairs hon, jo nahi hain. Isske bajaye humne alag pretrained readers (roberta-base vs large vs deberta) ko apne test set pe compare kiya. Aur pipeline ka har hissa, span extraction se evaluation tak, humara code hai; weights pretrained hain jaise har industry system mein.</div></details>
+<details class="qa"><summary>ChatGPT se kya alag hai?</summary><div>ChatGPT document ke bahar se bhi bol sakta hai aur galat bhi bol sakta hai confidently. Yeh sirf document se bolta hai, evidence dikhata hai, aur nahi pata toh "nahi pata" bolta hai.</div></details>
+<details class="qa"><summary>Loss function kya thi?</summary><div>Start position pe cross-entropy + end position pe cross-entropy, dono ka average. Unanswerable examples ke liye dono target token 0 (<code>&lt;s&gt;</code>).</div></details>
+<details class="qa"><summary>Abstain kaise hota hai?</summary><div>Null score (token 0 pe start+end logit) vs best span score. Null jeeta toh "not found". Upar se confidence (softmax over span vs null) &lt; 0.6 ho toh bhi "not found".</div></details>
+<details class="qa"><summary>F1 yahan kya hai?</summary><div>Predicted span aur gold answer ke tokens ka overlap: precision aur recall ka harmonic mean. Near-miss ko partial credit milta hai. Exact Match strict hai: normalise karke poora match.</div></details>
+<details class="qa"><summary>Chunk size 180 aur top-k 5 kyun?</summary><div>Sweep kiya: chunk 100 vs 180, top-k 3 vs 5, null margin 0–3. 180 + top-k 5 pe Recall 1.00 aur best F1 bina abstain tode.</div></details>
+<details class="qa"><summary>Dense aur TF-IDF ka score same kyun?</summary><div>Test documents chhote hain (4–5 chunks); top-5 mein saare chunks aa jaate hain, toh retriever matter nahi karta. Top-3 pe fark dikhta hai. Lambe documents pe dense retriever ka fayda hota hai. Yeh humne honestly report kiya hai.</div></details>
+<details class="qa"><summary>Limitations?</summary><div>Conversation memory simple hai (sirf previous question). Extractive hai, toh summary-type sawaal span se nahi hote; uske liye generator ka overview hai. Scanned PDFs OCR quality pe depend karte hain. Test set chhota aur self-written hai.</div></details>
+<details class="qa"><summary>1,000 documents pe scale kaise?</summary><div>FAISS index mein sab documents ke chunks jaate hain, har chunk ke saath file/page id. Reader ka cost same rehta hai kyunki woh sirf top-k padhta hai.</div></details>
+
+<h2 id="roles">8. Team roles: kaun kya bolega</h2>
+<div class="roles">
+  <div class="role"><div class="who">Member 1 · lead</div><b>Problem + architecture</b><p>Section 1 aur 2 ka overview, "normal web app" wala jawaab, demo ka order.</p></div>
+  <div class="role"><div class="who">Member 2</div><b>Loader + chunker</b><p>Document types, blocks, chunk size kyun, section/page citations.</p></div>
+  <div class="role"><div class="who">Member 3</div><b>Retriever</b><p>Embeddings, cosine, FAISS, dense vs TF-IDF live demo.</p></div>
+  <div class="role"><div class="who">Member 4</div><b>Reader</b><p>Span extraction, start/end logits, null score, <code>reader.py</code> live dikhana.</p></div>
+  <div class="role"><div class="who">Member 5</div><b>Evaluation + generator</b><p>Numbers table, sweep findings, generative toggle demo, limitations.</p></div>
+</div>
+<h3>Demo se pehle checklist</h3>
+<ul>
+  <li>App warm karo (ek sawaal pooch lo) taaki models load ho jaayein.</li>
+  <li>Kettle manual sample select karo. Order: capacity → smart speakers → price (abstain) → evidence → <code>reader.py</code>.</li>
+  <li>Pairing mode wala sawaal mat poocho (known miss).</li>
+  <li>Generative toggle tab on karo jab span wale sawaal dikha chuke ho.</li>
+</ul>
+</div>
+
+<script>
+(function(){
+  var steps=[
+    {t:"1. Loader — file se text aur structure",h:"Koi deep learning nahi, yeh plumbing hai. PDF se text blocks, tables aur page numbers; Word/PowerPoint/Excel/HTML ke apne parsers; scanned image pe OCR. Output: <b>blocks</b> (heading, paragraph, table row), har ek ke saath page number. Structure isliye bachate hain ki 'Education' heading aur degree line ka rishta na toote."},
+    {t:"2. Chunker — ~180 shabdon ke tukde",h:"Reader ek baar mein ~512 tokens hi padh sakta hai, isliye kaatna padta hai. Har chunk ke upar uska section heading lagta hai, table row kabhi beech se nahi kat-ti, aur har chunk yaad rakhta hai file, page, section. Isi se citation banti hai."},
+    {t:"3. Embedding model — pehla neural network (MiniLM)",h:"Har chunk aur sawaal 384 numbers ke vector mein. Same matlab = paas vectors (cosine similarity zyada). 'Smart speakers' poochne pe 'Alexa and Google Assistant' wala chunk milta hai, jabki 'speaker' shabd document mein nahi hai. Sentence-BERT style contrastive training."},
+    {t:"4. FAISS — nearest neighbour search",h:"Facebook ki library: saare chunk vectors store, sawaal ke vector ke sabse paas wale 5 turant bahar. Normalised vectors ka inner product = cosine. TF-IDF baseline bhi yahin plug hota hai, comparison ke liye."},
+    {t:"5. Reader — dusra neural network (RoBERTa, SQuAD 2.0)",h:"Sawaal + ek chunk andar, exact span bahar. Har token ke liye start logit aur end logit; best (start,end) pair = jawaab. Token 0 ka score = 'jawaab nahi hai'. Top-5 chunks mein se sabse zyada score wala non-empty span final hota hai, uska chunk evidence. Yeh logic humne khud likha hai. Neeche section 3 mein animate karke dekho."},
+    {t:"6. Generator — teesra neural network (Flan-T5), optional toggle",h:"Reader ke span ko poore sentence mein likhta hai: 'two-year' → 'The AquaBoil Pro is covered by a two-year limited warranty.' Sirf tab chalta hai jab span mila ho; nahi mila toh yeh bhi chup. Summary aur suggested questions bhi yahi likhta hai, aur suggested questions ko reader se verify karke hi dikhate hain."}
+  ];
+  var rail=document.getElementById('rail'),puck=document.getElementById('puck'),ex=document.getElementById('explain');
+  var stages=Array.prototype.slice.call(rail.querySelectorAll('.stage'));
+  var cur=0,timer=null;
+  function go(i){
+    cur=(i+steps.length)%steps.length;
+    stages.forEach(function(s,j){s.classList.toggle('active',j===cur)});
+    var r=stages[cur].getBoundingClientRect(),rr=rail.getBoundingClientRect();
+    puck.style.left=(r.left-rr.left+r.width/2-11)+'px';
+    ex.innerHTML='<h3>'+steps[cur].t+'</h3><p>'+steps[cur].h+'</p>';
+  }
+  function stop(){if(timer){clearInterval(timer);timer=null;document.getElementById('play').textContent='▶ Play'}}
+  document.getElementById('play').addEventListener('click',function(){
+    if(timer){stop();return}
+    this.textContent='⏸ Pause';go(cur);
+    timer=setInterval(function(){ if(cur===steps.length-1){stop();return} go(cur+1) },4500);
+  });
+  document.getElementById('next').addEventListener('click',function(){stop();go(cur+1)});
+  document.getElementById('prev').addEventListener('click',function(){stop();go(cur-1)});
+  stages.forEach(function(s){s.addEventListener('click',function(){stop();go(+s.dataset.i)})});
+  window.addEventListener('resize',function(){go(cur)});
+  go(0);
+
+  /* ---- reader demo ---- */
+  var passage=["<s>","How","long","is","the","warranty","?","</s>","</s>","The","AquaBoil","Pro","is","covered","by","a","two","-","year","limited","warranty","from","the","date","of","purchase","."];
+  var qlen=9; // tokens 0..8 are question + separators
+  var tokEl=document.getElementById('tokens'),scoreEl=document.getElementById('score');
+  function render(startL,endL,span,nullWins,q){
+    passage[1]=q[0];passage[2]=q[1];passage[3]=q[2];passage[4]=q[3];passage[5]=q[4];passage[6]=q[5];
+    tokEl.innerHTML='';
+    passage.forEach(function(w,i){
+      var d=document.createElement('div');d.className='tok'+(i<qlen?' q':'')+(span&&i>=span[0]&&i<=span[1]?' span':'')+(nullWins&&i===0?' null':'');
+      var s=Math.max(2,Math.round(startL[i]*44)),e=Math.max(2,Math.round(endL[i]*44));
+      d.innerHTML='<div class="bars"><div class="bar s" style="height:2px"></div><div class="bar e" style="height:2px"></div></div><div class="w">'+w.replace('<','&lt;').replace('>','&gt;')+'</div>';
+      tokEl.appendChild(d);
+      setTimeout(function(){d.querySelector('.bar.s').style.height=s+'px';d.querySelector('.bar.e').style.height=e+'px'},60+i*25);
+    });
+  }
+  function demoFound(){
+    var S=new Array(passage.length).fill(0.08),E=new Array(passage.length).fill(0.08);
+    S[0]=0.35;E[0]=0.30; S[16]=0.95;E[18]=0.92;E[20]=0.5;S[19]=0.3;
+    render(S,E,[16,18],false,["How","long","is","the","warranty","?"]);
+    scoreEl.innerHTML='<span>best span</span><span>"two - year" → start[16]+end[18] = <b>9.4</b></span><span>null score</span><span>start[0]+end[0] = 2.1</span><span>confidence</span><span>softmax → 1.00</span><span>verdict</span><span class="verdict ok">span jeeta → answer: "two-year"</span>';
+  }
+  function demoNull(){
+    var S=new Array(passage.length).fill(0.12),E=new Array(passage.length).fill(0.12);
+    S[0]=0.9;E[0]=0.88; S[16]=0.3;E[18]=0.28;S[25]=0.25;E[25]=0.3;
+    render(S,E,null,true,["How","much","does","it","cost","?"]);
+    scoreEl.innerHTML='<span>best span</span><span>"purchase" → 2.7</span><span>null score</span><span>start[0]+end[0] = <b>6.9</b></span><span>confidence</span><span>softmax → 0.01</span><span>verdict</span><span class="verdict no">null jeeta → "not found in document"</span>';
+  }
+  document.getElementById('demoFound').addEventListener('click',demoFound);
+  document.getElementById('demoNull').addEventListener('click',demoNull);
+  demoFound();
+})();
+</script>
