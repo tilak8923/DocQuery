@@ -98,7 +98,7 @@ button{font:inherit;cursor:pointer}
   <div class="eyebrow">Deep Learning-Based Document Question Answering</div>
   <h1>DocQuery Team Guide</h1>
   <p class="lead">Paanch logon ke liye ek page: project andar se kaise chalta hai, humne kya banaya, aur instructor ke sawaalon ka jawaab kaise dena hai. Technical shabd English mein hain kyunki viva mein wahi bolne hain.</p>
-  <p><span class="pill">3 neural networks</span> <span class="pill">F1 0.89</span> <span class="pill">abstain 6/6</span> <span class="pill">0.2 s / question, CPU</span></p>
+  <p><span class="pill">3 neural networks</span> <span class="pill">F1 0.95</span> <span class="pill">abstain 6/6</span> <span class="pill">0.3 s / question, CPU</span></p>
 </header>
 
 <h2 id="kya">1. Project ek line mein</h2>
@@ -142,17 +142,17 @@ button{font:inherit;cursor:pointer}
 <h3>SQuAD 2.0</h3>
 <p>Stanford ka dataset: Wikipedia passages pe 100k+ sawaal, jawaab passage ka span. Version 2.0 mein 50k <b>unanswerable</b> sawaal bhi hain, isliye model "nahi pata" bolna seekhta hai. Fine-tuning loss: start index pe cross-entropy + end index pe cross-entropy, average. Metrics: <b>Exact Match</b> aur <b>F1</b> (token overlap, partial credit).</p>
 <h3>Embeddings aur cosine similarity</h3>
-<p>Sentence-BERT tareeke se trained model (MiniLM) har text ko 384 numbers ke vector mein badalta hai; same matlab = paas vectors. Cosine similarity vector ki length ignore karke sirf direction compare karti hai. Normalised vectors ka dot product = cosine, isliye FAISS mein inner product use karte hain.</p>
+<p>Sentence-BERT tareeke se trained model (BGE-base) har text ko 384 numbers ke vector mein badalta hai; same matlab = paas vectors. Cosine similarity vector ki length ignore karke sirf direction compare karti hai. Normalised vectors ka dot product = cosine, isliye FAISS mein inner product use karte hain.</p>
 <h3>Dense vs TF-IDF (sidebar ka Advanced option)</h3>
 <p><b>TF-IDF</b> keyword matching hai, koi neural network nahi: "warranty" poocho toh jahan "warranty" likha hai wahi chunk. <b>Dense</b> matlab se dhoondhta hai: "smart speakers" poocho toh "Alexa and Google Assistant" wala chunk milta hai, jabki "speaker" shabd document mein hai hi nahi. Option isliye rakha taaki baseline vs deep learning live dikha sakein.</p>
 
 <h2 id="kiya">5. Humne kya kiya (confidently bolo)</h2>
 <div class="nums">
   <div class="num"><b>56</b><span>hand-written questions, 3 docs, 6 unanswerable</span></div>
-  <div class="num"><b>0.89</b><span>F1 (Exact Match 0.88)</span></div>
+  <div class="num"><b>0.89</b><span>F1 (Exact Match 0.89)</span></div>
   <div class="num"><b>1.00</b><span>Recall@5: sahi passage hamesha top-5 mein</span></div>
   <div class="num"><b>6/6</b><span>unanswerable pe sahi abstain</span></div>
-  <div class="num"><b>0.2 s</b><span>per question, laptop CPU</span></div>
+  <div class="num"><b>0.3 s</b><span>per question, laptop CPU</span></div>
 </div>
 <ol>
   <li><b>Poora pipeline khud banaya</b>: loader, structure-aware chunker, retriever, reader ka span-extraction aur abstain logic, multi-document citations, follow-up handling.</li>
@@ -208,9 +208,9 @@ button{font:inherit;cursor:pointer}
   var steps=[
     {t:"1. Loader — file se text aur structure",h:"Koi deep learning nahi, yeh plumbing hai. PDF se text blocks, tables aur page numbers; Word/PowerPoint/Excel/HTML ke apne parsers; scanned image pe OCR. Output: <b>blocks</b> (heading, paragraph, table row), har ek ke saath page number. Structure isliye bachate hain ki 'Education' heading aur degree line ka rishta na toote."},
     {t:"2. Chunker — ~180 shabdon ke tukde",h:"Reader ek baar mein ~512 tokens hi padh sakta hai, isliye kaatna padta hai. Har chunk ke upar uska section heading lagta hai, table row kabhi beech se nahi kat-ti, aur har chunk yaad rakhta hai file, page, section. Isi se citation banti hai."},
-    {t:"3. Embedding model — pehla neural network (MiniLM)",h:"Har chunk aur sawaal 384 numbers ke vector mein. Same matlab = paas vectors (cosine similarity zyada). 'Smart speakers' poochne pe 'Alexa and Google Assistant' wala chunk milta hai, jabki 'speaker' shabd document mein nahi hai. Sentence-BERT style contrastive training."},
+    {t:"3. Embedding model — pehla neural network (BGE-base)",h:"Har chunk aur sawaal 384 numbers ke vector mein. Same matlab = paas vectors (cosine similarity zyada). 'Smart speakers' poochne pe 'Alexa and Google Assistant' wala chunk milta hai, jabki 'speaker' shabd document mein nahi hai. Sentence-BERT style contrastive training."},
     {t:"4. FAISS — nearest neighbour search",h:"Facebook ki library: saare chunk vectors store, sawaal ke vector ke sabse paas wale 5 turant bahar. Normalised vectors ka inner product = cosine. TF-IDF baseline bhi yahin plug hota hai, comparison ke liye."},
-    {t:"5. Reader — dusra neural network (RoBERTa, SQuAD 2.0)",h:"Sawaal + ek chunk andar, exact span bahar. Har token ke liye start logit aur end logit; best (start,end) pair = jawaab. Token 0 ka score = 'jawaab nahi hai'. Top-5 chunks mein se sabse zyada score wala non-empty span final hota hai, uska chunk evidence. Yeh logic humne khud likha hai. Neeche section 3 mein animate karke dekho."},
+    {t:"5. Reader — dusra neural network (DeBERTa-v3, SQuAD 2.0)",h:"Sawaal + ek chunk andar, exact span bahar. Har token ke liye start logit aur end logit; best (start,end) pair = jawaab. Token 0 ka score = 'jawaab nahi hai'. Top-5 chunks mein se sabse zyada score wala non-empty span final hota hai, uska chunk evidence. Yeh logic humne khud likha hai. Neeche section 3 mein animate karke dekho."},
     {t:"6. Generator — teesra neural network (Flan-T5), optional toggle",h:"Reader ke span ko poore sentence mein likhta hai: 'two-year' → 'The AquaBoil Pro is covered by a two-year limited warranty.' Sirf tab chalta hai jab span mila ho; nahi mila toh yeh bhi chup. Summary aur suggested questions bhi yahi likhta hai, aur suggested questions ko reader se verify karke hi dikhate hain."}
   ];
   var rail=document.getElementById('rail'),puck=document.getElementById('puck'),ex=document.getElementById('explain');

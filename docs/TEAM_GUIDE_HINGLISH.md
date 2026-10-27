@@ -46,7 +46,7 @@ Text ko ~180 shabdon ke tukdon (chunks) mein kaat-ta hai.
 - Table ki row kabhi beech se nahi kat-ti.
 - Har chunk yaad rakhta hai: kaunsi file, kaunsa page, kaunsa section. Isi se citation banti hai.
 
-### Step 3 — Embedding model (`dlqa/retriever.py`, model: all-MiniLM-L6-v2)
+### Step 3 — Embedding model (`dlqa/retriever.py`, model: bge-base-en-v1.5)
 **Pehla neural network.** Har chunk ko 384 numbers ke vector mein badalta hai. Sawaal ko bhi.
 - Jin sentences ka **matlab** same hai, unke vectors paas hote hain (cosine similarity zyada).
 - Isliye "smart speakers" poochne pe "Alexa and Google Assistant" wala chunk milta hai,
@@ -63,7 +63,7 @@ hain, jo cosine similarity ke barabar hai.
 tareeka hai, bina neural network ke. Humne isko isliye rakha hai taaki dikha sakein ki
 neural retriever kahan behtar hai (paraphrase pe). Evaluation mein dono compare kiye hain.
 
-### Step 5 — Reader (`dlqa/reader.py`, model: roberta-base-squad2)
+### Step 5 — Reader (`dlqa/reader.py`, model: deberta-v3-base-squad2)
 **Dusra neural network, project ka dil.** Sawaal + ek chunk andar jaata hai, exact jawaab
 ka span bahar aata hai. Andar kya hota hai:
 
@@ -147,11 +147,11 @@ isliye har line explain kar sakte hain.
 | Metric | Value |
 |---|---|
 | Questions | 56 (3 docs, 6 unanswerable) |
-| Exact Match | 0.88 |
-| F1 | 0.89 |
+| Exact Match | 0.89 |
+| F1 | 0.95 |
 | Recall@5 (sahi passage top-5 mein) | 1.00 |
 | Abstain accuracy | 6/6 = 1.00 |
-| Speed | ~0.2 s / question, laptop CPU |
+| Speed | ~0.3 s / question, laptop CPU |
 
 ---
 

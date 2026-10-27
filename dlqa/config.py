@@ -23,8 +23,12 @@ def _int(name: str, default: int) -> int:
 
 @dataclass(frozen=True)
 class Settings:
-    embed_model: str = os.environ.get("DLQA_EMBED_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
-    reader_model: str = os.environ.get("DLQA_READER_MODEL", "deepset/roberta-base-squad2")
+    # Chosen by scripts/compare_models.py --embeddings (data/eval/embeddings.md):
+    # Recall@2 0.96 vs 0.84 for MiniLM at the same latency. bge-small (0.92) for tiny hosts.
+    embed_model: str = os.environ.get("DLQA_EMBED_MODEL", "BAAI/bge-base-en-v1.5")
+    # Chosen by scripts/compare_models.py (data/eval/models.md): F1 0.95 vs 0.89 for
+    # roberta-base at 1.5x the latency; deberta-v3-large reaches 0.97 at 4.5x.
+    reader_model: str = os.environ.get("DLQA_READER_MODEL", "deepset/deberta-v3-base-squad2")
     gen_model: str = os.environ.get("DLQA_GEN_MODEL", "google/flan-t5-base")
     chunk_words: int = _int("DLQA_CHUNK_WORDS", 180)
     overlap_words: int = _int("DLQA_OVERLAP_WORDS", 40)

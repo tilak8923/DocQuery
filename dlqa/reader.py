@@ -1,7 +1,8 @@
 """Reader: a transformer that extracts the answer span from a passage.
 
-Model: deepset/roberta-base-squad2. It was trained on SQuAD v2, where some
-questions have no answer in the passage.
+Model: deepset/deberta-v3-base-squad2 by default (see data/eval/models.md for
+the comparison; override with DLQA_READER_MODEL). Trained on SQuAD v2, where
+some questions have no answer in the passage.
 
 How span extraction works (this is the deep-learning core of the project):
 

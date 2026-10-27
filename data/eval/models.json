@@ -1,0 +1,82 @@
+[
+  {
+    "em": 0.875,
+    "f1": 0.8936688311688312,
+    "recall": 1.0,
+    "abstain": 1.0,
+    "sec": 0.1909107142857143,
+    "misses": [
+      [
+        "How often should the kettle be descaled?",
+        ""
+      ],
+      [
+        "What is the late penalty?",
+        ""
+      ],
+      [
+        "Which Python version is used?",
+        "CS 3310"
+      ],
+      [
+        "What did the authors add to give the model a notion of word order?",
+        ""
+      ],
+      [
+        "What percentage of input tokens are masked in BERT pretraining?",
+        ""
+      ]
+    ],
+    "model": "deepset/roberta-base-squad2",
+    "params": 124.056578,
+    "load_s": 1.152968125010375
+  },
+  {
+    "em": 0.8928571428571429,
+    "f1": 0.9535501700680272,
+    "recall": 1.0,
+    "abstain": 1.0,
+    "sec": 0.2810714285714286,
+    "misses": [
+      [
+        "How much is each programming assignment worth?",
+        "40 percent of the final grade"
+      ]
+    ],
+    "model": "deepset/deberta-v3-base-squad2",
+    "params": 183.83309,
+    "load_s": 245.6688158340403
+  },
+  {
+    "em": 0.8928571428571429,
+    "f1": 0.9498975726654298,
+    "recall": 1.0,
+    "abstain": 1.0,
+    "sec": 0.581875,
+    "misses": [
+      [
+        "How many parameters did the base Transformer have?",
+        ""
+      ]
+    ],
+    "model": "deepset/roberta-large-squad2",
+    "params": 354.312194,
+    "load_s": 589.2038498749607
+  },
+  {
+    "em": 0.9285714285714286,
+    "f1": 0.9713718820861679,
+    "recall": 1.0,
+    "abstain": 1.0,
+    "sec": 0.8937857142857143,
+    "misses": [
+      [
+        "What is the late penalty?",
+        "Late submissions lose 10 percent per day and are not accepted after three days"
+      ]
+    ],
+    "model": "deepset/deberta-v3-large-squad2",
+    "params": 434.01421,
+    "load_s": 582.0500285000307
+  }
+]

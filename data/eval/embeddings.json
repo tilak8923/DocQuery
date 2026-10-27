@@ -1,0 +1,198 @@
+[
+  {
+    "em": 0.75,
+    "f1": 0.7589285714285714,
+    "recall": 0.84,
+    "abstain": 1.0,
+    "sec": 0.11882142857142856,
+    "misses": [
+      [
+        "How often should the kettle be descaled?",
+        ""
+      ],
+      [
+        "Where is the serial number printed?",
+        ""
+      ],
+      [
+        "Who is the instructor?",
+        ""
+      ],
+      [
+        "Where is the instructor's office?",
+        ""
+      ],
+      [
+        "When are office hours?",
+        ""
+      ],
+      [
+        "Who is the teaching assistant?",
+        ""
+      ],
+      [
+        "What is the prerequisite for this course?",
+        ""
+      ],
+      [
+        "What is the late penalty?",
+        ""
+      ],
+      [
+        "Which Python version is used?",
+        "CS 3310"
+      ],
+      [
+        "Who proposed the Transformer?",
+        ""
+      ],
+      [
+        "What did the authors add to give the model a notion of word order?",
+        ""
+      ],
+      [
+        "What percentage of input tokens are masked in BERT pretraining?",
+        ""
+      ],
+      [
+        "Which metric gives partial credit for token overlap?",
+        ""
+      ]
+    ],
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "params": 22.713216,
+    "load_s": 0.0
+  },
+  {
+    "em": 0.8035714285714286,
+    "f1": 0.8125,
+    "recall": 0.88,
+    "abstain": 1.0,
+    "sec": 0.13960714285714285,
+    "misses": [
+      [
+        "How often should the kettle be descaled?",
+        ""
+      ],
+      [
+        "Where is the serial number printed?",
+        ""
+      ],
+      [
+        "Who is the instructor?",
+        ""
+      ],
+      [
+        "Where is the instructor's office?",
+        ""
+      ],
+      [
+        "When are office hours?",
+        ""
+      ],
+      [
+        "Who is the teaching assistant?",
+        ""
+      ],
+      [
+        "What is the prerequisite for this course?",
+        ""
+      ],
+      [
+        "What is the late penalty?",
+        ""
+      ],
+      [
+        "What did the authors add to give the model a notion of word order?",
+        ""
+      ],
+      [
+        "What percentage of input tokens are masked in BERT pretraining?",
+        ""
+      ]
+    ],
+    "model": "sentence-transformers/all-mpnet-base-v2",
+    "params": 109.486464,
+    "load_s": 0.0
+  },
+  {
+    "em": 0.8392857142857143,
+    "f1": 0.8482142857142857,
+    "recall": 0.92,
+    "abstain": 1.0,
+    "sec": 0.09223214285714286,
+    "misses": [
+      [
+        "Which voice assistants work with the kettle?",
+        ""
+      ],
+      [
+        "How often should the kettle be descaled?",
+        ""
+      ],
+      [
+        "Where is the instructor's office?",
+        ""
+      ],
+      [
+        "When are office hours?",
+        ""
+      ],
+      [
+        "Who is the teaching assistant?",
+        ""
+      ],
+      [
+        "What is the late penalty?",
+        ""
+      ],
+      [
+        "What did the authors add to give the model a notion of word order?",
+        ""
+      ],
+      [
+        "What percentage of input tokens are masked in BERT pretraining?",
+        ""
+      ]
+    ],
+    "model": "BAAI/bge-small-en-v1.5",
+    "params": 33.36,
+    "load_s": 0.0
+  },
+  {
+    "em": 0.8571428571428571,
+    "f1": 0.8758116883116883,
+    "recall": 0.96,
+    "abstain": 1.0,
+    "sec": 0.10335714285714286,
+    "misses": [
+      [
+        "How often should the kettle be descaled?",
+        ""
+      ],
+      [
+        "Where is the instructor's office?",
+        ""
+      ],
+      [
+        "Who is the teaching assistant?",
+        ""
+      ],
+      [
+        "What is the late penalty?",
+        ""
+      ],
+      [
+        "What did the authors add to give the model a notion of word order?",
+        ""
+      ],
+      [
+        "What percentage of input tokens are masked in BERT pretraining?",
+        ""
+      ]
+    ],
+    "model": "BAAI/bge-base-en-v1.5",
+    "params": 109.48224,
+    "load_s": 0.0
+  }
+]

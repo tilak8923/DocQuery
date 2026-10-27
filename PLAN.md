@@ -149,6 +149,13 @@ Track C findings (2026-10-27)
 - Suggested questions are filtered by actually asking them; only confidently answerable ones
   are shown.
 
+Model choice (2026-10-27, `data/eval/models.md`): deberta-v3-base-squad2 is the default
+reader (F1 0.95 vs 0.89 for roberta-base, 0.28 s/question). deberta-v3-large reaches 0.97
+at 0.89 s/question and is the Docker default. No fine-tuning: the public SQuAD 2.0
+checkpoints are the ceiling without in-domain training data.
+Embeddings: bge-base-en-v1.5 default (Recall@2 0.96 vs 0.84 MiniLM, same latency; `data/eval/embeddings.md`).
+Final eval with both: EM 0.89, F1 0.95, abstain 6/6, ~0.3 s/question.
+
 Memory note: Flan-T5-base is ~1 GB in fp32. It is loaded lazily only when the toggle is on.
 On Streamlit Community Cloud set `DLQA_GEN_MODEL=google/flan-t5-small` in secrets if the app
 is killed when the toggle is first used.
