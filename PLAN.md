@@ -119,6 +119,40 @@ Fallback if B2 is too slow: fine-tune for one epoch on 5k examples, report the t
 
 ---
 
+---
+
+## 4b. Track C — Production (started 2026-10-27)
+
+Goal: make DocQuery usable as a real tool, not a demo. Track A stays the DL core; Track C
+wraps it in the features a product needs. Order is by user-visible value.
+
+| # | Feature | What it means | Status |
+|---|---|---|---|
+| C1 | Any document type | PDF (layout-aware, tables, page numbers), DOCX (headings, tables), PPTX, XLSX/CSV (rows → sentences), HTML, TXT/MD, images and scanned PDFs via OCR | [x] |
+| C2 | Structure-aware chunking | Chunks follow paragraphs/headings, carry section title + page, never split a table row | [x] |
+| C3 | Generative mode switch | Sidebar toggle: extractive span (default) or a Flan-T5 generated sentence grounded in the retrieved passages; both shown when on | [x] |
+| C4 | Document overview | On upload: short summary + suggested questions (click to ask) | [x] |
+| C5 | Multiple documents | Upload several files; answers cite file, page and section | [x] |
+| C6 | Follow-up questions | Short questions with pronouns reuse the previous question for retrieval | [x] |
+| C7 | Export + hygiene | Download chat as Markdown; config via env vars; OCR/no-text warnings; size limits | [x] |
+| C8 | Ops | Dockerfile, GitHub Actions running unit tests, packages.txt for Tesseract on Streamlit Cloud | [x] |
+| C9 | Scale | Persist indexes per document hash; background indexing; auth (later) | [ ] |
+
+Track C findings (2026-10-27)
+- Structure-aware chunking (headings carried into chunks) raised eval F1 0.88 → 0.89 and
+  fixed every syllabus header question; packing small sections together was needed because
+  one-section chunks made the reader overconfident.
+- Minimum answer confidence set to 0.6: on the eval set every wrong answer scored < 0.6 and
+  every right one > 0.7.
+- Generative mode only rewrites a span the extractive reader found; letting Flan-T5 answer on
+  its own fabricated answers for unanswerable questions.
+- Suggested questions are filtered by actually asking them; only confidently answerable ones
+  are shown.
+
+Memory note: Flan-T5-base is ~1 GB in fp32. It is loaded lazily only when the toggle is on.
+On Streamlit Community Cloud set `DLQA_GEN_MODEL=google/flan-t5-small` in secrets if the app
+is killed when the toggle is first used.
+
 ## 5. Repo layout
 
 ```

@@ -4,9 +4,16 @@
 torch
 transformers>=5
 sentence-transformers
+sentencepiece
 faiss-cpu
+numpy
+pandas
+openpyxl
 pymupdf
 python-docx
+python-pptx
+beautifulsoup4
+pillow
+pytesseract
 scikit-learn
 streamlit
-numpy

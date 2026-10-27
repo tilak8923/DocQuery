@@ -1,45 +1,60 @@
 """Command-line entry point.
 
-    python -m dlqa.cli data/samples/transformers.txt "Who proposed the Transformer?"
-    python -m dlqa.cli data/samples/transformers.txt            # interactive
-    python -m dlqa.cli doc.pdf "question" --retriever tfidf     # baseline
+    python -m dlqa.cli manual.pdf "How long is the warranty?"
+    python -m dlqa.cli manual.pdf syllabus.docx            # several docs, interactive
+    python -m dlqa.cli manual.pdf -q "..." --generative    # Flan-T5 sentence too
+    python -m dlqa.cli manual.pdf --summary                # overview + suggested questions
 """
 
-import argparse
+from __future__ import annotations
 
-from .pipeline import DocumentQA
+import argparse
+from pathlib import Path
+
+from .loader import load_document
+from .pipeline import DocumentQA, QAResult
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="Ask questions about a document")
-    p.add_argument("document")
-    p.add_argument("question", nargs="?")
+    p = argparse.ArgumentParser(description="Ask questions about one or more documents")
+    p.add_argument("paths", nargs="+", help="document files; a trailing non-file is taken as the question")
+    p.add_argument("-q", "--question")
     p.add_argument("--retriever", choices=["dense", "tfidf"], default="dense")
-    p.add_argument("--top-k", type=int, default=5)
+    p.add_argument("--top-k", type=int, default=None)
+    p.add_argument("--generative", action="store_true", help="also produce a generated sentence")
+    p.add_argument("--summary", action="store_true", help="print a summary and suggested questions")
     p.add_argument("--show-chunks", action="store_true", help="print retrieved chunks")
     args = p.parse_args()
 
+    paths = list(args.paths)
+    question = args.question
+    if question is None and len(paths) > 1 and not Path(paths[-1]).exists():
+        question = paths.pop()
+
     print("Loading models (first run downloads them)...")
     qa = DocumentQA(retriever=args.retriever, top_k=args.top_k)
-    n = qa.load(args.document)
-    print(f"Indexed {n} chunks from {args.document}\n")
+    for path in paths:
+        doc = load_document(path)
+        n = qa.add_document(doc)
+        print(f"Indexed {doc.name}: {doc.words} words, {doc.pages or '?'} pages, {n} chunks")
+    print()
 
-    def answer(q: str) -> None:
-        r = qa.ask(q)
-        if r.found:
-            print(f"Answer     : {r.answer}")
-            print(f"Confidence : {r.confidence:.2f}")
-        else:
-            print("Answer     : (not found in document)")
-        print(f"Time       : {r.seconds:.2f}s")
-        print(f"Evidence   : ...{_trim(r.evidence, r.answer)}...")
-        if args.show_chunks:
-            for rc in r.retrieved:
-                print(f"  [chunk {rc.chunk.id} score={rc.score:.3f}] {rc.chunk.text[:120]}...")
+    if args.summary:
+        print("Summary:", qa.summarize())
+        for q in qa.suggest_questions():
+            print("  ?", q)
         print()
 
-    if args.question:
-        answer(args.question)
+    previous: str | None = None
+
+    def answer(q: str) -> None:
+        nonlocal previous
+        r = qa.ask(q, generative=args.generative, previous_question=previous)
+        previous = q
+        _print(r, args.show_chunks)
+
+    if question:
+        answer(question)
         return
 
     print("Type a question (empty line to quit).")
@@ -51,6 +66,24 @@ def main() -> None:
         if not q:
             break
         answer(q)
+
+
+def _print(r: QAResult, show_chunks: bool) -> None:
+    if r.answer:
+        print(f"Answer     : {r.answer}")
+        print(f"Confidence : {r.confidence:.2f}")
+    else:
+        print("Answer     : (not found in document)")
+    if r.generated is not None:
+        print(f"Generated  : {r.generated or '(model found no answer)'}")
+    if r.citation:
+        print(f"Source     : {r.citation}")
+    print(f"Time       : {r.seconds:.2f}s")
+    print(f"Evidence   : ...{_trim(r.evidence, r.answer)}...")
+    if show_chunks:
+        for rc in r.retrieved:
+            print(f"  [chunk {rc.chunk.id} score={rc.score:.3f} p{rc.chunk.page}] {rc.chunk.text[:110]}...")
+    print()
 
 
 def _trim(evidence: str, answer: str, width: int = 300) -> str:

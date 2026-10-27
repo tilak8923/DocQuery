@@ -22,6 +22,8 @@ from dataclasses import dataclass
 
 import torch
 
+from .config import settings
+
 
 @dataclass
 class ReaderAnswer:
@@ -34,16 +36,15 @@ class ReaderAnswer:
 
 
 class ExtractiveReader:
-    MODEL_NAME = "deepset/roberta-base-squad2"
-
     def __init__(
         self,
-        model_name: str = MODEL_NAME,
+        model_name: str | None = None,
         max_answer_tokens: int = 40,
         null_margin: float = 0.0,
     ):
         from transformers import AutoModelForQuestionAnswering, AutoTokenizer
 
+        model_name = model_name or settings.reader_model
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = AutoModelForQuestionAnswering.from_pretrained(model_name)
         self.model.eval()
