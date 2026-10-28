@@ -37,10 +37,45 @@ class Generator:
 
         name = model_name or settings.gen_model
         self.tokenizer = AutoTokenizer.from_pretrained(name)
-        self.model = AutoModelForSeq2SeqLM.from_pretrained(name)
+        self.model = self._load(AutoModelForSeq2SeqLM, name)
         self.model.eval()
         self.max_input_tokens = max_input_tokens
         self.name = name
+
+    @staticmethod
+    def _load(cls, name: str):
+        """Load the seq2seq model and make sure every weight is real.
+
+        transformers >= 5 builds the model on the "meta" device and then fills
+        the weights in. For T5-family checkpoints whose encoder/decoder token
+        embeddings are tied to ``shared`` this has left ``embed_tokens`` on the
+        meta device on some hosts (seen on Streamlit Community Cloud), and the
+        first ``generate()`` then fails with
+        "Tensor.item() cannot be called on meta tensors". Re-tie the
+        embeddings, and if anything is still on meta, reload from the
+        ``pytorch_model.bin`` checkpoint, which stores every key explicitly.
+        """
+        model = cls.from_pretrained(name, dtype=torch.float32)
+        try:
+            model.tie_weights()
+            shared = model.get_input_embeddings()
+            for part in ("encoder", "decoder"):
+                sub = getattr(model, part, None)
+                if sub is not None and hasattr(sub, "embed_tokens"):
+                    sub.embed_tokens = shared
+        except Exception:  # noqa: BLE001 - best effort, checked below
+            pass
+        meta = [n for n, p in model.named_parameters() if p.device.type == "meta"]
+        meta += [n for n, b in model.named_buffers() if b.device.type == "meta"]
+        if meta:
+            model = cls.from_pretrained(name, dtype=torch.float32, use_safetensors=False)
+            model.tie_weights()
+            still = [n for n, p in model.named_parameters() if p.device.type == "meta"]
+            if still:
+                raise RuntimeError(
+                    f"{name}: weights not loaded (still on meta device): {still[:5]}"
+                )
+        return model
 
     @torch.no_grad()
     def _generate(self, prompt: str, max_new_tokens: int = 96, **kw) -> list[str]:

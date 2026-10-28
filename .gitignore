@@ -4,3 +4,6 @@ __pycache__/
 models/*
 !models/.gitkeep
 .streamlit/secrets.toml
+
+# local video build outputs (large)
+video/
