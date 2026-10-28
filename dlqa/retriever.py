@@ -35,16 +35,26 @@ class DenseRetriever:
         self.chunks: list[Chunk] = []
         self.index = None
 
-    def index_chunks(self, chunks: list[Chunk]) -> None:
+    def index_chunks(self, chunks: list[Chunk], progress=None) -> None:
         import faiss
 
         self.chunks = chunks
-        embeddings = self.model.encode(
-            [c.text for c in chunks],
-            convert_to_numpy=True,
-            normalize_embeddings=True,  # so inner product == cosine similarity
-            show_progress_bar=False,
-        ).astype("float32")
+        texts = [c.text for c in chunks]
+        batch = 64
+        parts = []
+        for i in range(0, len(texts), batch):
+            if progress is not None:
+                progress(i, len(texts))
+            parts.append(
+                self.model.encode(
+                    texts[i : i + batch],
+                    batch_size=32,
+                    convert_to_numpy=True,
+                    normalize_embeddings=True,  # so inner product == cosine similarity
+                    show_progress_bar=False,
+                )
+            )
+        embeddings = np.vstack(parts).astype("float32")
         self.index = faiss.IndexFlatIP(embeddings.shape[1])
         self.index.add(embeddings)
 
@@ -71,7 +81,7 @@ class TfidfRetriever:
         self.chunks: list[Chunk] = []
         self.matrix = None
 
-    def index_chunks(self, chunks: list[Chunk]) -> None:
+    def index_chunks(self, chunks: list[Chunk], progress=None) -> None:
         self.chunks = chunks
         self.matrix = self.vectorizer.fit_transform([c.text for c in chunks])
 

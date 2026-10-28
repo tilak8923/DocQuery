@@ -109,7 +109,7 @@ class DocumentQA:
         self.clear()
         return self.add_document(load_bytes(data, filename))
 
-    def add_document(self, doc: Document) -> int:
+    def add_document(self, doc: Document, progress=None) -> int:
         if doc.needs_ocr:
             raise ValueError(
                 f"{doc.name} has no extractable text (scanned?) and OCR is not available. "
@@ -132,20 +132,20 @@ class DocumentQA:
             )
             doc.blocks = kept
         self.documents = [d for d in self.documents if d.name != doc.name] + [doc]
-        self._reindex()
+        self._reindex(progress)
         return len([c for c in self.chunks if c.doc == doc.name])
 
     def remove_document(self, name: str) -> None:
         self.documents = [d for d in self.documents if d.name != name]
         self._reindex()
 
-    def _reindex(self) -> None:
+    def _reindex(self, progress=None) -> None:
         chunks: list[Chunk] = []
         for d in self.documents:
             chunks += chunk_blocks(d.blocks, d.name, self.chunk_words, self.overlap_words, start_id=len(chunks))
         self.chunks = chunks
         if chunks:
-            self.retriever.index_chunks(chunks)
+            self.retriever.index_chunks(chunks, progress)
 
     # ---- asking -------------------------------------------------------
     def ask(

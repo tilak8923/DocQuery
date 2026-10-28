@@ -27,6 +27,12 @@ def _total_ram_gb() -> float:
 _DEFAULT_GEN = "google/flan-t5-base" if _total_ram_gb() >= 6 else "google/flan-t5-small"
 
 
+# bge-base (110M params) embeds ~0.4 s per PDF page on a 2-core host; bge-small (33M)
+# is ~3.5x faster for a small recall cost (0.92 vs 0.96 Recall@2, data/eval/embeddings.md).
+# Use bge-small on small hosts so a 100-page PDF indexes in well under a minute.
+_DEFAULT_EMBED = "BAAI/bge-base-en-v1.5" if _total_ram_gb() >= 6 else "BAAI/bge-small-en-v1.5"
+
+
 def _int(name: str, default: int) -> int:
     try:
         return int(os.environ.get(name, default))
@@ -38,7 +44,7 @@ def _int(name: str, default: int) -> int:
 class Settings:
     # Chosen by scripts/compare_models.py --embeddings (data/eval/embeddings.md):
     # Recall@2 0.96 vs 0.84 for MiniLM at the same latency. bge-small (0.92) for tiny hosts.
-    embed_model: str = os.environ.get("DLQA_EMBED_MODEL", "BAAI/bge-base-en-v1.5")
+    embed_model: str = os.environ.get("DLQA_EMBED_MODEL", _DEFAULT_EMBED)
     # Chosen by scripts/compare_models.py (data/eval/models.md): F1 0.95 vs 0.89 for
     # roberta-base at 1.5x the latency; deberta-v3-large reaches 0.97 at 4.5x.
     reader_model: str = os.environ.get("DLQA_READER_MODEL", "deepset/deberta-v3-base-squad2")
@@ -53,6 +59,8 @@ class Settings:
     max_ocr_pages: int = _int("DLQA_MAX_OCR_PAGES", 40 if _total_ram_gb() >= 6 else 12)
     table_detect_max_pages: int = _int("DLQA_TABLE_PAGES", 80)
     max_index_words: int = _int("DLQA_MAX_INDEX_WORDS", 0 if _total_ram_gb() >= 6 else 60_000)
+    # Above this many pages the UI warns that indexing will take a while.
+    warn_pages: int = _int("DLQA_WARN_PAGES", 150)
 
 
 settings = Settings()

@@ -49,14 +49,15 @@ class Document:
 
 
 # ---------------------------------------------------------------- entry points
-def load_document(path: str | Path) -> Document:
+def load_document(path: str | Path, progress=None) -> Document:
     path = Path(path)
     if not path.exists():
         raise FileNotFoundError(path)
-    return load_bytes(path.read_bytes(), path.name)
+    return load_bytes(path.read_bytes(), path.name, progress)
 
 
-def load_bytes(data: bytes, filename: str) -> Document:
+def load_bytes(data: bytes, filename: str, progress=None) -> Document:
+    """`progress(done, total)` is called per page for PDFs (used by the UI progress bar)."""
     suffix = Path(filename).suffix.lower().lstrip(".")
     if suffix not in SUPPORTED_TYPES:
         raise ValueError(f"Unsupported file type: .{suffix}")
@@ -72,7 +73,7 @@ def load_bytes(data: bytes, filename: str) -> Document:
         "txt": _load_text,
         "md": _load_text,
     }.get(suffix, _load_image)
-    doc = loader(data, filename)
+    doc = _load_pdf(data, filename, progress) if suffix == "pdf" else loader(data, filename)
     doc.blocks = [b for b in doc.blocks if b.text.strip()]
     return doc
 
@@ -129,7 +130,18 @@ def _ocr_image(img) -> str | None:
 
 
 # ---------------------------------------------------------------- PDF
-def _load_pdf(data: bytes, filename: str) -> Document:
+def _page_has_rulings(page) -> bool:
+    """find_tables() (default "lines" strategy) only finds tables drawn with vector
+    lines/rectangles, and costs ~150 ms per page. Pages with no drawings (novels,
+    plain notes) cannot contain such a table, so we skip the expensive call there."""
+    try:
+        get = getattr(page, "get_cdrawings", None) or page.get_drawings
+        return len(get()) > 0
+    except Exception:  # noqa: BLE001
+        return True  # unknown -> be safe and look for tables
+
+
+def _load_pdf(data: bytes, filename: str, progress=None) -> Document:
     import pymupdf
 
     from .config import settings
@@ -145,10 +157,13 @@ def _load_pdf(data: bytes, filename: str) -> Document:
                 f"{len(pdf)} pages: table detection skipped (limit {settings.table_detect_max_pages} pages)."
             )
         for pno, page in enumerate(pdf, start=1):
+            if progress is not None:
+                progress(pno - 1, doc.pages)
             table_rects = []
             # Tables first, so their text is not duplicated as paragraphs.
             try:
-                for tab in (page.find_tables().tables if detect_tables else []):
+                tables = page.find_tables().tables if detect_tables and _page_has_rulings(page) else []
+                for tab in tables:
                     table_rects.append(pymupdf.Rect(tab.bbox))
                     doc.blocks.extend(_table_blocks(tab.extract(), pno))
             except Exception:  # noqa: BLE001  (older PyMuPDF without find_tables)

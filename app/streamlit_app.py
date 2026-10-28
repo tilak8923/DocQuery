@@ -148,12 +148,31 @@ if files and st.session_state.get("index_key") != index_key:
     prev_names = set(st.session_state.get("index_key", ((),))[0])
     qa.clear()
     errors = []
-    with st.spinner("Reading and indexing..."):
-        for f in files:
-            try:
-                qa.add_document(load_bytes(f.getvalue(), f.name))
-            except Exception as e:  # noqa: BLE001
-                errors.append(f"{f.name}: {e}")
+    # A progress bar instead of a bare spinner, so a long document never looks frozen.
+    bar = st.progress(0.0, text="Starting...")
+    n = len(files)
+    for k, f in enumerate(files):
+        base, span = k / n, 1 / n
+
+        def read_progress(done, total, name=f.name, base=base, span=span):
+            bar.progress(min(base + span * 0.4 * done / max(total, 1), 1.0),
+                         text=f"Reading {name}: page {done + 1} of {total}")
+
+        def index_progress(done, total, name=f.name, base=base, span=span):
+            bar.progress(min(base + span * (0.4 + 0.6 * done / max(total, 1)), 1.0),
+                         text=f"Understanding {name}: passage {done} of {total}")
+
+        try:
+            doc = load_bytes(f.getvalue(), f.name, progress=read_progress)
+            if doc.pages and doc.pages > settings.warn_pages:
+                st.sidebar.warning(
+                    f"{f.name} has {doc.pages} pages; indexing takes about a minute per "
+                    f"{settings.warn_pages} pages. Smaller files are much faster."
+                )
+            qa.add_document(doc, progress=index_progress)
+        except Exception as e:  # noqa: BLE001
+            errors.append(f"{f.name}: {e}")
+    bar.empty()
     for err in errors:
         st.sidebar.error(err)
     for d in qa.documents:
