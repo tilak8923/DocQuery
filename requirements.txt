@@ -2,6 +2,9 @@
 # Streamlit Community Cloud can use anyway.
 --extra-index-url https://download.pytorch.org/whl/cpu
 torch==2.14.1
+# torchvision is not used by DocQuery; it only stops Streamlit's module watcher from
+# logging an ImportError every rerun while it inspects transformers' vision submodules.
+torchvision
 transformers==5.20.2
 sentence-transformers==6.2.0
 sentencepiece
