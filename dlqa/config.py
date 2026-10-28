@@ -47,6 +47,12 @@ class Settings:
     overlap_words: int = _int("DLQA_OVERLAP_WORDS", 40)
     top_k: int = _int("DLQA_TOP_K", 5)
     max_upload_mb: int = _int("DLQA_MAX_UPLOAD_MB", 50)
+    # Guard rails for slow hosts. OCR of a scanned page costs seconds and table
+    # detection on a 300-page book costs minutes, so cap both; a small host also
+    # caps the words that get indexed (the UI says so when it happens).
+    max_ocr_pages: int = _int("DLQA_MAX_OCR_PAGES", 40 if _total_ram_gb() >= 6 else 12)
+    table_detect_max_pages: int = _int("DLQA_TABLE_PAGES", 80)
+    max_index_words: int = _int("DLQA_MAX_INDEX_WORDS", 0 if _total_ram_gb() >= 6 else 60_000)
 
 
 settings = Settings()

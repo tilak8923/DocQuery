@@ -117,6 +117,20 @@ class DocumentQA:
             )
         if not doc.blocks:
             raise ValueError(f"{doc.name} contains no readable text")
+        cap = settings.max_index_words
+        if cap and doc.words > cap:
+            kept, total = [], 0
+            for b in doc.blocks:
+                n = len(b.text.split())
+                if total + n > cap:
+                    break
+                kept.append(b)
+                total += n
+            doc.notes.append(
+                f"{doc.name} has {doc.words:,} words; only the first {total:,} were indexed on this "
+                "host (DLQA_MAX_INDEX_WORDS). Run locally or in Docker for the whole document."
+            )
+            doc.blocks = kept
         self.documents = [d for d in self.documents if d.name != doc.name] + [doc]
         self._reindex()
         return len([c for c in self.chunks if c.doc == doc.name])

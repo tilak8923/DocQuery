@@ -156,6 +156,9 @@ if files and st.session_state.get("index_key") != index_key:
                 errors.append(f"{f.name}: {e}")
     for err in errors:
         st.sidebar.error(err)
+    for d in qa.documents:
+        for note in d.notes:
+            st.sidebar.warning(note)
     st.session_state.index_key = index_key
     st.session_state.pop("overview", None)
     if set(index_key[0]) - prev_names:  # a new document arrived -> fresh chat

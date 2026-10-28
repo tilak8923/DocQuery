@@ -37,6 +37,7 @@ class Document:
     blocks: list[Block] = field(default_factory=list)
     pages: int = 0
     needs_ocr: bool = False  # True when text could not be extracted and OCR was unavailable
+    notes: list[str] = field(default_factory=list)  # warnings to show the user (limits hit)
 
     @property
     def text(self) -> str:
@@ -131,15 +132,23 @@ def _ocr_image(img) -> str | None:
 def _load_pdf(data: bytes, filename: str) -> Document:
     import pymupdf
 
+    from .config import settings
+
     doc = Document(name=filename)
     needs_ocr = False
+    ocr_pages = 0
     with pymupdf.open(stream=data, filetype="pdf") as pdf:
         doc.pages = len(pdf)
+        detect_tables = len(pdf) <= settings.table_detect_max_pages
+        if not detect_tables:
+            doc.notes.append(
+                f"{len(pdf)} pages: table detection skipped (limit {settings.table_detect_max_pages} pages)."
+            )
         for pno, page in enumerate(pdf, start=1):
             table_rects = []
             # Tables first, so their text is not duplicated as paragraphs.
             try:
-                for tab in page.find_tables().tables:
+                for tab in (page.find_tables().tables if detect_tables else []):
                     table_rects.append(pymupdf.Rect(tab.bbox))
                     doc.blocks.extend(_table_blocks(tab.extract(), pno))
             except Exception:  # noqa: BLE001  (older PyMuPDF without find_tables)
@@ -174,8 +183,17 @@ def _load_pdf(data: bytes, filename: str) -> Document:
                 doc.blocks.append(Block(text, pno, "heading" if is_heading else "paragraph"))
 
             if not page_has_text and not table_rects:
-                # Probably a scanned page: try OCR.
-                pix = page.get_pixmap(dpi=200)
+                # Probably a scanned page: try OCR (capped, it costs seconds per page).
+                if ocr_pages >= settings.max_ocr_pages:
+                    if ocr_pages == settings.max_ocr_pages:
+                        doc.notes.append(
+                            f"Only the first {settings.max_ocr_pages} scanned pages were OCR'd "
+                            "(DLQA_MAX_OCR_PAGES); the rest were skipped."
+                        )
+                        ocr_pages += 1
+                    continue
+                ocr_pages += 1
+                pix = page.get_pixmap(dpi=150)
                 try:
                     from PIL import Image
 
