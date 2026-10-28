@@ -46,35 +46,33 @@ class Generator:
     def _load(cls, name: str):
         """Load the seq2seq model and make sure every weight is real.
 
-        transformers >= 5 builds the model on the "meta" device and then fills
-        the weights in. For T5-family checkpoints whose encoder/decoder token
-        embeddings are tied to ``shared`` this has left ``embed_tokens`` on the
-        meta device on some hosts (seen on Streamlit Community Cloud), and the
-        first ``generate()`` then fails with
-        "Tensor.item() cannot be called on meta tensors". Re-tie the
-        embeddings, and if anything is still on meta, reload from the
-        ``pytorch_model.bin`` checkpoint, which stores every key explicitly.
+        transformers >= 5 builds the model on the "meta" device and fills the
+        weights in from the checkpoint. The flan-t5 safetensors checkpoints do
+        not store ``encoder.embed_tokens`` / ``decoder.embed_tokens`` (they are
+        the same tensor as ``shared``), and on some hosts transformers leaves
+        those two on the meta device instead of tying them. The first
+        ``generate()`` then fails with "Tensor.item() cannot be called on meta
+        tensors" (seen on Streamlit Community Cloud). Tie them explicitly.
         """
+        import gc
+
         model = cls.from_pretrained(name, dtype=torch.float32)
-        try:
-            model.tie_weights()
-            shared = model.get_input_embeddings()
-            for part in ("encoder", "decoder"):
-                sub = getattr(model, part, None)
-                if sub is not None and hasattr(sub, "embed_tokens"):
-                    sub.embed_tokens = shared
-        except Exception:  # noqa: BLE001 - best effort, checked below
-            pass
+        shared = model.get_input_embeddings()
+        for part in ("encoder", "decoder"):
+            sub = getattr(model, part, None)
+            if sub is not None and hasattr(sub, "embed_tokens"):
+                sub.embed_tokens = shared
         meta = [n for n, p in model.named_parameters() if p.device.type == "meta"]
         meta += [n for n, b in model.named_buffers() if b.device.type == "meta"]
         if meta:
+            # Last resort: the .bin checkpoint stores every key explicitly.
+            # Free the half-loaded model first; two copies do not fit on a 2.7 GB host.
+            del model, shared
+            gc.collect()
             model = cls.from_pretrained(name, dtype=torch.float32, use_safetensors=False)
-            model.tie_weights()
             still = [n for n, p in model.named_parameters() if p.device.type == "meta"]
             if still:
-                raise RuntimeError(
-                    f"{name}: weights not loaded (still on meta device): {still[:5]}"
-                )
+                raise RuntimeError(f"{name}: weights not loaded (still on meta device): {still[:5]}")
         return model
 
     @torch.no_grad()
